@@ -32,9 +32,8 @@ flex-direction: column;
 align-items: center;
 `
 const Initial = styled.div`
-width: 84%;
+width: 100%;
 display: flex;
-align-items: center;
-margin-bottom: 74px;
+padding: 0 12px 70px 12px;
 `
 

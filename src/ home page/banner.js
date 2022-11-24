@@ -9,14 +9,13 @@ export default function Banner(){
    )
 }
 
-
-
 const StyleBanner = styled.div`
 border-radius: 10px;
-width: 1139px;
+width: 100%;
 height: 530px;
 margin-left: 22px;
 img{
+   width:100%;
    height: 530px;
 }
 `

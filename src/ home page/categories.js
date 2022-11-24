@@ -20,10 +20,10 @@ width: 233px;
 height: 530px;
 display: flex;
 flex-direction: column;
-padding-top: 30px;
-padding-left: 20px;
+align-items: center;
 background-color: #E96324;
 border-radius: 10px;
+
 h1{
 font-family: 'Poppins';
 font-style: normal;

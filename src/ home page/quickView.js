@@ -15,7 +15,7 @@ export default function QuickView(props) {
 
 
 const StyleQuickView = styled.div`
-width: 1400px;
+width: 100%;
 height: 481px;
 display: flex;
 flex-direction: column;
