@@ -1,11 +1,10 @@
+import HomePage from "./ home page/homePage";
 
-
-function App() {
+export default function App() {
   return (
-<>
-<h1>hello world</h1>
-</>
-  );
+    <>
+      <HomePage/>
+    </>
+  )
 }
 
-export default App;
