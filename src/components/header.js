@@ -1,9 +1,10 @@
- import styled from "styled-components";
- import raposa from "../img/logo.png"
- import carrinho from "../img/carrinho.png"
+import styled from "styled-components";
+import raposa from "../img/logo.png"
+import carrinho from "../img/carrinho.png"
+import { Link } from "react-router-dom";
 
-export default function Header(){
-    return(
+export default function Header() {
+    return (
         <StyleHeader>
             <div>
                 <img src={raposa} alt="logo" />
@@ -13,8 +14,12 @@ export default function Header(){
                 </button>
             </div>
             <StyleOptions>
-                <span>Cadastrar</span>
-                <span>Entrar</span>
+                <Link to="/signUp">
+                    <span>Cadastrar</span>
+                </Link>
+                <Link to="/signIn">
+                    <span>Entrar</span>
+                </Link>
                 <img src={carrinho} alt="carrinho" />
             </StyleOptions>
         </StyleHeader>

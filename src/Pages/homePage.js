@@ -1,8 +1,8 @@
 import styled from "styled-components"
-import Header from "./header"
-import Categories from "./categories"
-import Banner from "./banner"
-import QuickView from "./quickView"
+import Header from "../components/header"
+import Categories from "../components/categories"
+import Banner from "../components/banner"
+import QuickView from "../components/quickView"
 
 export default function HomePage() {
     return (
