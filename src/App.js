@@ -6,6 +6,7 @@ import SignIn from "./Pages/signInPage";
 import SignUp from "./Pages/signUp";
 import ProductPage from "./Pages/productPage";
 import CartPage from "./Pages/cartPage";
+import ListProductsPage from "./Pages/listProductsPage";
 
 export default function App() {
 
@@ -26,6 +27,7 @@ export default function App() {
             <Route path="/signIn" element={<SignIn />}></Route>
             <Route path="/product/:id" element={<ProductPage />}></Route>
             <Route path="/cart" element={<CartPage />}></Route>
+            <Route path="/listProducts/:categorie" element={<ListProductsPage />}></Route>
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>

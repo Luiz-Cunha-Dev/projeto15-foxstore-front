@@ -32,7 +32,7 @@ export default function ProductPage() {
             <Header/>
             <ProductPageStyle>
                 <Frame>
-                <img onClick={() => console.log(selectedProduct)} src={selectedProduct[0].image} alt="imagem" />
+                <img src={selectedProduct[0].image} alt="imagem" />
                 <PrincipalContent>
                     <h1>{selectedProduct[0].name}</h1>
                     <b>R$ {(selectedProduct[0].value).toFixed(2).replace(".", ",")}</b>

@@ -1,13 +1,22 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export default function Categories(){
    return(
            <StyleCategories>
             <h1>Categorias</h1>
-               <p>Eletronicos</p>
-               <p>Roupas</p>
-               <p>Esporte</p>
-               <p>Brinquedos</p>
+            <Link to="/listProducts/Eletronicos">
+            <p>Eletronicos</p>
+            </Link>
+            <Link to="/listProducts/Roupas">
+            <p>Roupas</p>
+            </Link>
+            <Link to="/listProducts/Esportes">
+            <p>Esporte</p>
+            </Link>
+            <Link to="/listProducts/Brinquedos">
+            <p>Brinquedos</p>
+            </Link>
            </StyleCategories>
 
    )

@@ -1,27 +1,44 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import styled from "styled-components"
+import Header from "../components/header"
+import { useState, useEffect } from "react"
+import axios from "axios"
+import { useParams } from "react-router-dom"
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
-import axios from "axios";
+import { Link } from "react-router-dom"
 
 
-export default function QuickView({categorie, products}) {
+export default function ListProductsPage() {
 
-    const filteredProducts = products.filter(p => p.categorie === (categorie).toLowerCase())
+    const {categorie} = useParams();
+    const [products, setProducts] = useState([]);
+
+    useEffect( () => {
+       const URL = "https://foxstore.onrender.com/products"
+
+        axios.get(URL)
+            .then(res => {
+                let filteredProducts = res.data.filter(p => p.categorie === categorie.toLowerCase())
+                console.log(filteredProducts);
+                setProducts(filteredProducts);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    } , [])
 
     return (
-        <StyleQuickView>
-            <StyleHeaderQuickView>
-                <span>{categorie}</span>
-                <Link to={`/listProducts/${categorie}`}>
-                <span>Veja mais >></span>
-                </Link>
-            </StyleHeaderQuickView>
-            <StyleQuickViewList>
-                {filteredProducts.map(p => <Item key={p._id} id={p._id} image={p.image} name={p.name} value={p.value}/>)}
-            </StyleQuickViewList>
-        </StyleQuickView>
-
+        <>
+            <Header/>
+            <ListProductsPageStyle>
+            <Title>
+                <h1>{categorie}</h1>
+            </Title>
+                <Frame>
+                {products.map(p => <Item key={p._id} id={p._id} image={p.image} name={p.name} value={p.value}/>)}
+                </Frame>
+            </ListProductsPageStyle>
+        </>
     )
 }
 
@@ -63,26 +80,23 @@ function Item(props){
     )
 }
 
-
-
-const StyleQuickView = styled.div`
+const ListProductsPageStyle = styled.div`
+background: #F2F2F2;
 width: 100%;
-height: 120%;
+padding-top: 20px;
 display: flex;
 flex-direction: column;
-border-radius: 10px;
-background-color: white;
-margin-bottom: 50px;
-padding-bottom: 20px;
+padding-left: 180px;
 `
 
-const StyleQuickViewList = styled.div`
-width: 100%;
-height: 100%;
+const Frame= styled.div`
+width: 1500px;
 display: flex;
-padding-left: 30px;
-padding-top: 20px;
-align-items: center;
+background-color: white;
+border-radius: 20px;
+flex-wrap: wrap;
+margin-bottom: 100px;
+padding-top: 35px;
 `
 
 const StyleItem = styled.div`
@@ -90,9 +104,11 @@ width: 243px;
 height: 100%;
 display: flex;
 flex-direction: column;
-margin-right: 50px;
 padding-left: 15px;
 padding-top: 10px;
+margin-bottom: 80px;
+margin-right: 28px;
+margin-left: 28px;
 img{
     width: 213px;
     height: 255px;
@@ -129,29 +145,18 @@ color: #FFFFFF;
 }
 `
 
-const StyleHeaderQuickView = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 65px;
-    background-color: #E96324;
-    padding-left: 32px;
-    padding-right: 8px;
-    span{
-        font-family: 'Poppins';
-font-style: normal;
-font-weight: 500;
-font-size: 35px;
-line-height: 52px;
-color: white;
-    }
-    span:last-child{
-        font-family: 'Poppins';
-font-style: normal;
-font-weight: 500;
-font-size: 25px;
-line-height: 38px;
-color:white;
-    }
-
+const Title = styled.div`
+width: 300px;
+height: 60px;
+background-color: #F2F2F2;
+h1{
+    width: 600px;
+    font-family: 'Poppins';
+    font-size: 35px;
+    font-weight: bold;
+    color: #000000;
+    text-transform: none;
+    line-height: 1.1;
+    margin-bottom: 25%;
+}
 `
