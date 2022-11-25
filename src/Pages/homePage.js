@@ -3,8 +3,25 @@ import Header from "../components/header"
 import Categories from "../components/categories"
 import Banner from "../components/banner"
 import QuickView from "../components/quickView"
+import { useState, useEffect } from "react"
+import axios from "axios"
 
 export default function HomePage() {
+
+    const [products, setProducts] = useState([])
+
+    useEffect( () => {
+       const URL = "https://foxstore.onrender.com/products"
+
+        axios.get(URL)
+            .then(res => {
+                setProducts(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    } , [])
+
     return (
         <>
             <Header/>
@@ -13,10 +30,10 @@ export default function HomePage() {
                 <Categories/>
                 <Banner/>
                 </Initial>
-                <QuickView categorie={"Eletronicos"}/>
-                <QuickView categorie={"Roupas"}/>
-                <QuickView categorie={"Esportes"}/>
-                <QuickView categorie={"Brinquedos"}/>
+                <QuickView categorie={"Eletronicos"} products={products}/>
+                <QuickView categorie={"Roupas"} products={products}/>
+                <QuickView categorie={"Esportes"} products={products}/>
+                <QuickView categorie={"Brinquedos"} products={products}/>
             </HomePageStyle>
         </>
     )
