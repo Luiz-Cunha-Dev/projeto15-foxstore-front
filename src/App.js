@@ -4,6 +4,7 @@ import UserContext from "./contexts/UserContext";
 import HomePage from "./Pages/homePage";
 import SignIn from "./Pages/signInPage";
 import SignUp from "./Pages/signUp";
+import ProductPage from "./Pages/productPage";
 
 export default function App() {
 
@@ -23,6 +24,7 @@ export default function App() {
             <Route path="/" element={<HomePage />}></Route>
             <Route path="/signUp" element={<SignUp />}></Route>
             <Route path="/signIn" element={<SignIn />}></Route>
+            <Route path="/product/:id" element={<ProductPage />}></Route>
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>

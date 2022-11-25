@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export default function QuickView({categorie, products}) {
 
@@ -11,7 +12,7 @@ export default function QuickView({categorie, products}) {
                 <span>Veja mais >></span>
             </StyleHeaderQuickView>
             <StyleQuickViewList>
-                {filteredProducts.map(p => <Item key={p._id} image={p.image} name={p.name} value={p.value}/>)}
+                {filteredProducts.map(p => <Item key={p._id} id={p._id} image={p.image} name={p.name} value={p.value}/>)}
             </StyleQuickViewList>
         </StyleQuickView>
 
@@ -21,8 +22,10 @@ export default function QuickView({categorie, products}) {
 function Item(props){
     return(
         <StyleItem>
-        <img src={props.image} alt="imagem" />
+            <Link to={`/product/${props.id}`}>
+            <img src={props.image} alt="imagem" />
         <p>{props.name}</p>
+            </Link>
         <b>R$ {(props.value).toFixed(2).replace(".", ",")}</b>
         <button>Comprar</button>
     </StyleItem>
