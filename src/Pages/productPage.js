@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import Header from "../components/header"
-import QuickView from "../components/quickView"
+import OtherProducts from "../components/otherProducts"
 import { useState, useEffect } from "react"
 import axios from "axios"
 import { useParams } from "react-router-dom"
@@ -10,8 +10,7 @@ export default function ProductPage() {
 
     const idProduct = useParams();
     const [products, setProducts] = useState([]);
-    const [selectedProduct, setSelectedProduct] = useState([{}]);
-    const relatedProduct = products.filter(p => p.categorie === selectedProduct.categorie);
+    const [selectedProduct, setSelectedProduct] = useState([{value:0}]);
 
     useEffect( () => {
        const URL = "https://foxstore.onrender.com/products"
@@ -19,9 +18,8 @@ export default function ProductPage() {
         axios.get(URL)
             .then(res => {
                 setProducts(res.data);
-                const filter = (res.data).filter(p => p._id === idProduct.id)
-                filter[0].value = filter[0].value.toFixed(2).replace(".", ",")
-                setSelectedProduct(filter)
+                const filterProducts = res.data.filter(p => p._id === idProduct.id)
+                setSelectedProduct(filterProducts)
                 
             })
             .catch(err => {
@@ -37,7 +35,7 @@ export default function ProductPage() {
                 <img onClick={() => console.log(selectedProduct)} src={selectedProduct[0].image} alt="imagem" />
                 <PrincipalContent>
                     <h1>{selectedProduct[0].name}</h1>
-                    <b>R$ {(selectedProduct[0].value)}</b>
+                    <b>R$ {(selectedProduct[0].value).toFixed(2).replace(".", ",")}</b>
                     <h2>Parcelas de até 4x sem juros</h2>
                     <button>Comprar</button>
                     <span>{selectedProduct[0].inventory} produtos disponiveis</span>
@@ -47,6 +45,7 @@ export default function ProductPage() {
                     <h1>informações do produto</h1>
                     <p>{selectedProduct[0].description}</p>
                 </Description>
+                <OtherProducts categorie={selectedProduct[0].categorie} products={products}/>
             </ProductPageStyle>
         </>
     )
