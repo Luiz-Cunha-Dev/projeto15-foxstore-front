@@ -1,5 +1,9 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext";
+import axios from "axios";
+
 
 export default function QuickView({categorie, products}) {
 
@@ -20,6 +24,31 @@ export default function QuickView({categorie, products}) {
 }
 
 function Item(props){
+    const { token } = useContext(UserContext); 
+   
+    const Url = "https://foxstore.onrender.com/cart"
+    
+    
+    function sendCart() {
+        const body = {
+            "name": props.name,
+            "qtde": 1
+        }
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        const promise = axios.post(Url, body, config)
+    
+        promise.then((res) => {
+            console.log(res.data)
+        });
+        promise.catch((erro) => {
+            console.log(erro)
+        });
+    
+    }
     return(
         <StyleItem>
             <Link to={`/product/${props.id}`}>
@@ -27,7 +56,7 @@ function Item(props){
         <p>{props.name}</p>
             </Link>
         <b>R$ {(props.value).toFixed(2).replace(".", ",")}</b>
-        <button>Comprar</button>
+        <button onClick={sendCart} >Comprar</button>
     </StyleItem>
     )
 }

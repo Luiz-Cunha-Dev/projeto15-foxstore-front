@@ -22,7 +22,9 @@ export default function Header() {
                 <Link to="/signIn">
                     <span>Entrar</span>
                 </Link>
-                <img src={carrinho} alt="carrinho" />
+                <Link to="/cart">
+                    <img src={carrinho} alt="carrinho" />
+                </Link>
             </StyleOptions>
         </StyleHeader>
 

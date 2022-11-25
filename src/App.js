@@ -5,11 +5,11 @@ import HomePage from "./Pages/homePage";
 import SignIn from "./Pages/signInPage";
 import SignUp from "./Pages/signUp";
 import ProductPage from "./Pages/productPage";
+import CartPage from "./Pages/cartPage";
 
 export default function App() {
 
-  const tokenOnLocalStorage = localStorage.getItem("token");
-  const [token, setToken] = useState(tokenOnLocalStorage)
+  const [token, setToken] = useState(localStorage.getItem("token"))
   function setAndPersistToken(token) {
     setToken(token);
     localStorage.setItem("token", token);
@@ -25,6 +25,7 @@ export default function App() {
             <Route path="/signUp" element={<SignUp />}></Route>
             <Route path="/signIn" element={<SignIn />}></Route>
             <Route path="/product/:id" element={<ProductPage />}></Route>
+            <Route path="/cart" element={<CartPage />}></Route>
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>
