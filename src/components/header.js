@@ -7,7 +7,9 @@ export default function Header() {
     return (
         <StyleHeader>
             <div>
-                <img src={raposa} alt="logo" />
+                <Link to="/">
+                    <img src={raposa} alt="logo" />
+                </Link>
                 <input type="text" placeholder="Pesquisar" />
                 <button>
                     <img src="https://cdn-icons-png.flaticon.com/512/49/49116.png" alt="lupa" />

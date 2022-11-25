@@ -2,16 +2,38 @@ import { useState } from "react"
 import styled from "styled-components"
 import {useNavigate} from "react-router-dom"
 import Header from "../components/header";
+import axios from "axios";
 
 export default function SignUp() {
+    const Url = "http://localhost:5000/signup"
     const navigate = useNavigate();
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [confir, setConfir] = useState('')
+    const [checkpasword, setCheckpasword] = useState('')
+    const body = {
+        name,
+        email,
+        password,
+        checkpasword
+    }
 
     function handleSubmit(e) {
         e.preventDefault();
+
+        const promise = axios.post(Url, body);
+
+        if (checkpasword === password) {
+            promise.then(() => {
+                navigate("/");
+            });
+            promise.catch((erro) => {
+                console.log(erro)
+            });
+        } else {
+            alert("Digite a mesma senha para checkpaswordmar!")
+            
+        }
         navigate("/");
     }
     return (
@@ -47,11 +69,11 @@ export default function SignUp() {
                         required></input>
 
                     <input
-                        onChange={e => setConfir(e.target.value)}
-                        value={confir}
-                        id="confirm"
+                        onChange={e => setCheckpasword(e.target.value)}
+                        value={checkpasword}
+                        id="checkpaswordm"
                         placeholder="Confirme a senha"
-                        name='confirm' type='password'
+                        name='checkpaswordm' type='password'
                         required></input>
 
                     <button type='submit'> Cadastrar </button>

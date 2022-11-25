@@ -1,16 +1,34 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import styled from "styled-components"
 import {useNavigate} from "react-router-dom"
 import Header from "../components/header";
+import axios from "axios";
+import UserContext from "../contexts/UserContext";
 
 export default function SignIn() {
+    const Url = "http://localhost:5000/signin"
     const navigate = useNavigate();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const body = {
+        email,
+        password,
+    }
+    const { setAndPersistToken } = useContext(UserContext);
 
     function handleSubmit(e) {
         e.preventDefault();
-        navigate("/");
+
+        const promise = axios.post(Url, body)
+
+        promise.then((res) => {
+            setAndPersistToken(res.data.token)
+            navigate("/");
+        });
+        promise.catch((erro) => {
+            console.log(erro)
+        });
+        
     }
     return (
         <>
