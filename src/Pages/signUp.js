@@ -5,7 +5,7 @@ import Header from "../components/header";
 import axios from "axios";
 
 export default function SignUp() {
-    const Url = "http://localhost:5000/signup"
+    const Url = "https://foxstore.onrender.com/signup"
     const navigate = useNavigate();
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
