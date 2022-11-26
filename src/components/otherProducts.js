@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext";
 
 
 export default function OtherProducts({categorie, products}) {
-
 
     const filteredProducts = products.filter(p => p.categorie === (categorie).toLowerCase())
 
@@ -24,7 +25,10 @@ export default function OtherProducts({categorie, products}) {
 }
 
 function Item(props){
+    
     const navigate = useNavigate()
+    const { sendCart } = useContext(UserContext); 
+
     return(
         <StyleItem>
             <Link onClick={() => {
@@ -35,7 +39,7 @@ function Item(props){
         <p>{props.name}</p>
             </Link>
         <b>R$ {(props.value).toFixed(2).replace(".",",")}</ b>
-        <button>Comprar</button>
+        <button onClick={() => sendCart(props.name)} >Comprar</button>
     </StyleItem>
     )
 }
@@ -103,6 +107,7 @@ font-size: 20px;
 line-height: 30px;
 color: #FFFFFF;
     border: thin;
+    cursor: pointer;
 }
 `
 

@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
-import axios from "axios";
 
 
 export default function QuickView({categorie, products}) {
@@ -28,32 +27,9 @@ export default function QuickView({categorie, products}) {
 function Item(props){
 
     const navigate = useNavigate();
+    const { sendCart } = useContext(UserContext); 
 
-    const { token } = useContext(UserContext); 
-   
-    const Url = "https://foxstore.onrender.com/cart"
     
-    
-    function sendCart() {
-        const body = {
-            "name": props.name,
-            "qtde": 1
-        }
-        const config = {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        }
-        const promise = axios.post(Url, body, config)
-    
-        promise.then((res) => {
-            console.log(res.data)
-        });
-        promise.catch((erro) => {
-            console.log(erro)
-        });
-    
-    }
     return(
         <StyleItem>
             <Link onClick={() => {
@@ -64,7 +40,9 @@ function Item(props){
         <p>{props.name}</p>
             </Link>
         <b>R$ {(props.value).toFixed(2).replace(".", ",")}</b>
-        <button onClick={sendCart} >Comprar</button>
+        <Link to="/cart">
+        <button onClick={() => sendCart(props.name)} >Comprar</button>
+        </Link>
     </StyleItem>
     )
 }
@@ -132,6 +110,7 @@ font-size: 20px;
 line-height: 30px;
 color: #FFFFFF;
     border: thin;
+    cursor: pointer;
 }
 `
 

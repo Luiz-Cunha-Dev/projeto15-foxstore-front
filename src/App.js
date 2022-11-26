@@ -7,6 +7,7 @@ import SignUp from "./Pages/signUp";
 import ProductPage from "./Pages/productPage";
 import CartPage from "./Pages/cartPage";
 import ListProductsPage from "./Pages/listProductsPage";
+import axios from "axios";
 
 export default function App() {
 
@@ -15,11 +16,32 @@ export default function App() {
     setToken(token);
     localStorage.setItem("token", token);
   }
+  function sendCart(name) {
+    const Url = "https://foxstore.onrender.com/cart"
+
+    const body = {
+        "name": name,
+        "qtde": 1
+    }
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    const promise = axios.post(Url, body, config)
+
+    promise.then((res) => {
+        console.log(res.data)
+    });
+    promise.catch((erro) => {
+        console.log(erro)
+    });
+  }
 
 
   return (
     <>
-      <UserContext.Provider value={{ token, setToken, setAndPersistToken }}>
+      <UserContext.Provider value={{ token, setToken, setAndPersistToken, sendCart }}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />}></Route>
