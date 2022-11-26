@@ -2,7 +2,7 @@ import styled from "styled-components"
 import Header from "../components/header"
 import { useState, useEffect } from "react"
 import axios from "axios"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
 import { Link } from "react-router-dom"
@@ -43,39 +43,20 @@ export default function ListProductsPage() {
 }
 
 function Item(props){
-    const { token } = useContext(UserContext); 
-   
-    const Url = "https://foxstore.onrender.com/cart"
+    const {sendCart} = useContext(UserContext)
+    const navigate = useNavigate()
     
-    
-    function sendCart() {
-        const body = {
-            "name": props.name,
-            "qtde": 1
-        }
-        const config = {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        }
-        const promise = axios.post(Url, body, config)
-    
-        promise.then((res) => {
-            console.log(res.data)
-        });
-        promise.catch((erro) => {
-            console.log(erro)
-        });
-    
-    }
     return(
         <StyleItem>
-            <Link to={`/product/${props.id}`}>
+            <Link onClick={() => {
+                navigate(`/product/${props.id}`)
+                window.location.reload()
+            }}>
             <img src={props.image} alt="imagem" />
         <p>{props.name}</p>
             </Link>
         <b>R$ {(props.value).toFixed(2).replace(".", ",")}</b>
-        <button onClick={sendCart} >Comprar</button>
+        <button onClick={() => sendCart(props.name)} >Comprar</button>
     </StyleItem>
     )
 }
@@ -142,6 +123,7 @@ font-size: 20px;
 line-height: 30px;
 color: #FFFFFF;
     border: thin;
+    cursor: pointer;
 }
 `
 

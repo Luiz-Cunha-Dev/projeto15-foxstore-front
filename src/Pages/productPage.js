@@ -4,6 +4,9 @@ import OtherProducts from "../components/otherProducts"
 import { useState, useEffect } from "react"
 import axios from "axios"
 import { useParams } from "react-router-dom"
+import UserContext from "../contexts/UserContext"
+import { useContext } from "react"
+import { Link } from "react-router-dom"
 
 
 export default function ProductPage() {
@@ -11,6 +14,7 @@ export default function ProductPage() {
     const idProduct = useParams();
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState([{value:0}]);
+    const {sendCart} = useContext(UserContext)
 
     useEffect( () => {
        const URL = "https://foxstore.onrender.com/products"
@@ -39,7 +43,9 @@ export default function ProductPage() {
                     <h1>{selectedProduct[0].name}</h1>
                     <b>R$ {(selectedProduct[0].value).toFixed(2).replace(".", ",")}</b>
                     <h2>Parcelas de até 4x sem juros</h2>
-                    <button>Comprar</button>
+                    <Link to="/cart">
+                    <button onClick={() => sendCart(selectedProduct[0].name)}>Comprar</button>
+                    </Link>
                     <span>{selectedProduct[0].inventory} produtos disponiveis</span>
                 </PrincipalContent>
                 </Frame>
@@ -118,6 +124,7 @@ button{
     border: thin;
     margin-top: 50px;
     width: 200px;
+    cursor: pointer;
 }
 span{
     font-family: 'Poppins';
