@@ -3,6 +3,7 @@ import Header from "../components/header"
 import Categories from "../components/categories"
 import Banner from "../components/banner"
 import QuickView from "../components/quickView"
+import Footer from "../components/footer"
 import { useState, useEffect } from "react"
 import axios from "axios"
 
@@ -34,6 +35,7 @@ export default function HomePage() {
                 <QuickView categorie={"Roupas"} products={products}/>
                 <QuickView categorie={"Esportes"} products={products}/>
                 <QuickView categorie={"Brinquedos"} products={products}/>
+                <Footer/>
             </HomePageStyle>
         </>
     )

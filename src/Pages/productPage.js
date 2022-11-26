@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom"
 import UserContext from "../contexts/UserContext"
 import { useContext } from "react"
 import { Link } from "react-router-dom"
+import Footer from "../components/footer"
 
 
 export default function ProductPage() {
@@ -55,6 +56,7 @@ export default function ProductPage() {
                 </Description>
                 <OtherProducts categorie={selectedProduct[0].categorie} products={products}/>
             </ProductPageStyle>
+            <Footer/>
         </>
     )
 }
