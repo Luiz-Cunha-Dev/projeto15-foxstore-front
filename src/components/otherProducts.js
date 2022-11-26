@@ -1,7 +1,9 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 export default function OtherProducts({categorie, products}) {
+
 
     const filteredProducts = products.filter(p => p.categorie === (categorie).toLowerCase())
 
@@ -9,7 +11,9 @@ export default function OtherProducts({categorie, products}) {
         <StyleOtherProducts>
             <StyleHeaderOtherProducts>
                 <span>Produtos relacionados</span>
+                <Link to={`/listProducts/${categorie}`}>
                 <span>Veja mais >></span>
+                </Link>
             </StyleHeaderOtherProducts>
             <StyleOtherProductsList>
                 {filteredProducts.map(p => <Item key={p._id} id={p._id} image={p.image} name={p.name} value={p.value}/>)}
@@ -20,9 +24,13 @@ export default function OtherProducts({categorie, products}) {
 }
 
 function Item(props){
+    const navigate = useNavigate()
     return(
         <StyleItem>
-            <Link to={`/product/${props.id}`}>
+            <Link onClick={() => {
+                navigate(`/product/${props.id}`)
+                window.location.reload()
+            }}>
             <img src={props.image} alt="imagem" />
         <p>{props.name}</p>
             </Link>
@@ -61,10 +69,10 @@ display: flex;
 flex-direction: column;
 margin-right: 50px;
 padding-left: 15px;
-padding-top: 10px;
+padding-top: 10px;;
 img{
-    width: 213px;
     height: 255px;
+    width: 213px;
 }
 p{
     font-family: 'Poppins';

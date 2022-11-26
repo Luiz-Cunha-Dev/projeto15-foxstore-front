@@ -32,7 +32,9 @@ export default function ProductPage() {
             <Header/>
             <ProductPageStyle>
                 <Frame>
-                <img src={selectedProduct[0].image} alt="imagem" />
+                    <ImageStyle>
+                    <img src={selectedProduct[0].image} alt="imagem" />
+                    </ImageStyle>
                 <PrincipalContent>
                     <h1>{selectedProduct[0].name}</h1>
                     <b>R$ {(selectedProduct[0].value).toFixed(2).replace(".", ",")}</b>
@@ -59,12 +61,15 @@ padding-top: 20px;
 display: flex;
 flex-direction: column;
 padding-left: 180px;
-img{
-    width: 600px;
-    margin: 30px;
-    border-radius: 10px;
-}
 `
+const ImageStyle = styled.div`
+    img{
+        width: 600px;
+        margin: 30px;
+        border-radius: 10px;
+    }
+`
+
 
 const PrincipalContent= styled.div`
 display: flex;
@@ -154,6 +159,7 @@ p{
     font-size: 25px;
     word-break: break-word;
     font-weight: normal;
+    line-height: 38px;
     color: rgb(102, 102, 102);
     margin-bottom: 50px;
 }
