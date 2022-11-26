@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
 import { Link } from "react-router-dom"
+import Footer from "../components/footer"
 
 
 export default function ListProductsPage() {
@@ -38,6 +39,7 @@ export default function ListProductsPage() {
                 {products.map(p => <Item key={p._id} id={p._id} image={p.image} name={p.name} value={p.value}/>)}
                 </Frame>
             </ListProductsPageStyle>
+            <Footer/>
         </>
     )
 }

@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom"
 import Header from "../components/header";
 import axios from "axios";
 import UserContext from "../contexts/UserContext";
+import Footer from "../components/footer";
 
 export default function SignIn() {
     const Url = "https://foxstore.onrender.com/signin"
@@ -58,6 +59,7 @@ export default function SignIn() {
                 </Form>
 
             </Conteiner>
+            <Footer/>
         </>
     )
 }

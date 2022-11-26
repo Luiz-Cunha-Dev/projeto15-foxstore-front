@@ -2,6 +2,7 @@ import { useState } from "react"
 import styled from "styled-components"
 import {useNavigate} from "react-router-dom"
 import Header from "../components/header";
+import Footer from "../components/footer";
 import axios from "axios";
 
 export default function SignUp() {
@@ -81,6 +82,7 @@ export default function SignUp() {
                 </Form>
 
             </Conteiner>
+            <Footer/>
         </>
     )
 }

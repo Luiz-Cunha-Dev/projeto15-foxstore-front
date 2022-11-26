@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../components/header";
 import UserContext from "../contexts/UserContext";
+import Footer from "../components/footer";
 
 export default function CartPage() {
     const { token } = useContext(UserContext);
@@ -35,7 +36,7 @@ export default function CartPage() {
                     <b>R$ {(obj.value).toFixed(2).replace(".", ",") }</b>
                 </StyleItem>
             )}
-
+            <Footer/>
         </>
     )
 }
