@@ -32,7 +32,7 @@ export default function ListProductsPage() {
             <Header/>
             <ListProductsPageStyle>
             <Title>
-                <h1>{categorie}</h1>
+                <h1>{categorie.replace(categorie[0], categorie[0].toUpperCase())}</h1>
             </Title>
                 <Frame>
                 {products.map(p => <Item key={p._id} id={p._id} image={p.image} name={p.name} value={p.value}/>)}

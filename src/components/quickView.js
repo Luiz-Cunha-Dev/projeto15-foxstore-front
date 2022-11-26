@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
 import axios from "axios";
@@ -26,6 +26,9 @@ export default function QuickView({categorie, products}) {
 }
 
 function Item(props){
+
+    const navigate = useNavigate();
+
     const { token } = useContext(UserContext); 
    
     const Url = "https://foxstore.onrender.com/cart"
@@ -53,7 +56,10 @@ function Item(props){
     }
     return(
         <StyleItem>
-            <Link to={`/product/${props.id}`}>
+            <Link onClick={() => {
+                navigate(`/product/${props.id}`)
+                window.location.reload()
+            }}>
             <img src={props.image} alt="imagem" />
         <p>{props.name}</p>
             </Link>
