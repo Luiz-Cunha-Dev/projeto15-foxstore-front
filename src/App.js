@@ -10,6 +10,7 @@ import CheckoutPage from "./Pages/checkoutPage";
 import ListProductsPage from "./Pages/listProductsPage";
 import SearchPage from "./Pages/searchPage";
 import axios from "axios";
+import Header from "./components/header";
 
 export default function App() {
 
@@ -39,10 +40,14 @@ export default function App() {
 
     promise.then((res) => {
         console.log(res.data)
+        window.location.reload()
+        window.scrollTo(0, 0)
     });
     promise.catch((erro) => {
         console.log(erro)
     });
+
+
   }
 
   function loadCart(setProductsCart){
