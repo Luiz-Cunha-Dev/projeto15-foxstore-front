@@ -146,6 +146,7 @@ color: black;
     img{
         width: 60px;
     }
+}
 `
 
 const StyleOptions = styled.div`
@@ -158,7 +159,6 @@ font-family: 'Poppins';
 font-style: normal;
 font-weight: 600;
 font-size: 30px;
-line-height: 60px;
 color: black;
 margin-right: 50px;
 }
@@ -189,6 +189,9 @@ span{
     
     p{
         font-size: 18px;
+        line-height: 18px;
+        margin-right: 20px;
+
     }
 }
 `
