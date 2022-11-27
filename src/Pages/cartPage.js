@@ -38,6 +38,7 @@ export default function CartPage() {
             <BackGround>
                 <Header/>
                 <Tittle>Meu Carrinho</Tittle>
+                <Container>
                 <AlignItems>
                 {productsCart.map((obj, i) => 
                     <StyleItem key={i}>
@@ -47,13 +48,28 @@ export default function CartPage() {
                     </StyleItem>
                 )}
                 </AlignItems>
+
+               
                 <ButtonFinish onClick={ () => { Checkout() } } >Finalizar Compra</ButtonFinish>
+                </Container>
                 <Footer/>
             </BackGround>
             )
         }
 }
 
+const Container = styled.div`
+    display: flex;
+`
+
+const AlignItems = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+`
 
 const BackGround = styled.div`
 background: #F2F2F2;
@@ -70,7 +86,7 @@ const Tittle = styled.h1`
 `
 
 const ButtonFinish = styled.button`
-    width: 100%;
+    width: 400px;
     height: 40px;
     background-color: #FFC700;
     border: none;
@@ -87,35 +103,23 @@ const ButtonFinish = styled.button`
 
     
 `
-
-const AlignItems = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10%;
-    margin-bottom: 10%;
-    margin-left: 10%;
-    margin-right: 10%;
-`
-
 const StyleItem = styled.div`
-width: 243px;
-height: 100%;
+width: 250px;
 display: flex;
 flex-direction: column;
 margin-right: 50px;
 padding-left: 15px;
 padding-top: 10px;
+margin-top: 2%;
 img{
-    width: 213px;
-    height: 255px;
+    width: 83px;
+    height: 105px;
 }
 p{
     font-family: 'Poppins';
 font-style: normal;
 font-weight: 500;
-font-size: 25px;
+font-size: 17px;
 line-height: 38px;
 color: #000000;
 
@@ -124,21 +128,9 @@ b{
     font-family: 'Poppins';
 font-style: normal;
 font-weight: 600;
-font-size: 25px;
+font-size: 18px;
 line-height: 55px;
 color: #000000;  
 }
-button{
-    width: 130px;
-    height: 30px;
-    background-color: #E60014;
-    border-radius: 15px;
-    font-family: 'Poppins';
-font-style: normal;
-font-weight: 500;
-font-size: 20px;
-line-height: 30px;
-color: #FFFFFF;
-    border: thin;
-}
+
 `
