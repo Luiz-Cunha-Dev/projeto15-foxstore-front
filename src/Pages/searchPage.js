@@ -9,9 +9,9 @@ import { Link } from "react-router-dom"
 import Footer from "../components/footer"
 
 
-export default function ListProductsPage() {
+export default function SearchPage() {
 
-    const {categorie} = useParams();
+    const {search} = useParams();
     const [products, setProducts] = useState([]);
 
     useEffect( () => {
@@ -19,7 +19,7 @@ export default function ListProductsPage() {
 
         axios.get(URL)
             .then(res => {
-                let filteredProducts = res.data.filter(p => p.categorie === categorie.toLowerCase())
+                const filteredProducts = res.data.filter(p => p.name.toLowerCase().includes(search))
                 setProducts(filteredProducts);
             })
             .catch(err => {
@@ -30,14 +30,15 @@ export default function ListProductsPage() {
     return (
         <BackGround>
             <Header/>
-            <ListProductsPageStyle>
+            <SearchPageStyle>
             <Title>
-                <h1>{categorie.replace(categorie[0], categorie[0].toUpperCase())}</h1>
+                <h1>resultados para "{search}"</h1>
+                <p>{products.length} produtos</p>
             </Title>
                 <Frame>
-                {products.map(p => <Item key={p._id} id={p._id} image={p.image} name={p.name} value={p.value}/>)}
+                {products.length === 0 ? <span>Nenhum produto encontrado</span> : products.map(p => <Item key={p._id} id={p._id} image={p.image} name={p.name} value={p.value}/>)}
                 </Frame>
-            </ListProductsPageStyle>
+            </SearchPageStyle>
             <Footer/>
         </BackGround>
     )
@@ -65,11 +66,12 @@ function Item(props){
 }
 
 
+
 const BackGround = styled.div`
 background: #F2F2F2;
 `
 
-const ListProductsPageStyle = styled.div`
+const SearchPageStyle = styled.div`
 background: #F2F2F2;
 width: 100%;
 padding-top: 20px;
@@ -86,6 +88,20 @@ border-radius: 20px;
 flex-wrap: wrap;
 margin-bottom: 100px;
 padding-top: 35px;
+span{
+    width: 100%;
+    height: 900px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins';
+    font-size: 35px;
+    font-weight: bold;
+    color: #000000;
+    text-transform: none;
+    line-height: 1.1;
+    margin-bottom: 5px;
+}
 `
 
 const StyleItem = styled.div`
@@ -136,14 +152,26 @@ color: #FFFFFF;
 `
 
 const Title = styled.div`
+display: flex;
+flex-direction: column;
 width: 300px;
 height: 60px;
 background-color: #F2F2F2;
+margin-bottom: 30px;
 h1{
     width: 600px;
     font-family: 'Poppins';
     font-size: 35px;
     font-weight: bold;
+    color: #000000;
+    text-transform: none;
+    line-height: 1.1;
+    margin-bottom: 5px;
+}
+p{
+    width: 600px;
+    font-family: 'Poppins';
+    font-size: 25px;
     color: #000000;
     text-transform: none;
     line-height: 1.1;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes} from "react-router-dom";
 import UserContext from "./contexts/UserContext";
 import HomePage from "./Pages/homePage";
 import SignIn from "./Pages/signInPage";
@@ -8,18 +8,26 @@ import ProductPage from "./Pages/productPage";
 import CartPage from "./Pages/cartPage";
 import CheckoutPage from "./Pages/checkoutPage";
 import ListProductsPage from "./Pages/listProductsPage";
+import SearchPage from "./Pages/searchPage";
 import axios from "axios";
+import Header from "./components/header";
 
 export default function App() {
 
   const [token, setToken] = useState(localStorage.getItem("token"))
   const [username, setUsername] = useState(localStorage.getItem('username') ? JSON.parse(localStorage.getItem('username')) : null);
-
-  
+  const [productsCart, setProductsCart] = useState([])
   function setAndPersistToken(token) {
     setToken(token);
     localStorage.setItem("token", token);
   }
+
+  const config = {
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+}
+
   function sendCart(name) {
     const Url = "https://foxstore.onrender.com/cart"
 
@@ -27,25 +35,37 @@ export default function App() {
         "name": name,
         "qtde": 1
     }
-    const config = {
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    }
+
     const promise = axios.post(Url, body, config)
 
     promise.then((res) => {
         console.log(res.data)
+        window.location.reload()
+        window.scrollTo(0, 0)
     });
     promise.catch((erro) => {
         console.log(erro)
     });
+
+
+  }
+
+  function loadCart(setProductsCart){
+            const URL = "https://foxstore.onrender.com/cart"
+        
+        axios.get(URL, config)
+            .then(res => {
+                setProductsCart(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
   }
 
 
   return (
     <>
-      <UserContext.Provider value={{ token, setToken, username, setUsername, setAndPersistToken, sendCart }}>
+      <UserContext.Provider value={{ token, setToken, setAndPersistToken, sendCart, loadCart, username, setUsername, config, productsCart, setProductsCart }}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />}></Route>
@@ -55,6 +75,7 @@ export default function App() {
             <Route path="/cart" element={<CartPage />}></Route>
             <Route path="/checkout" element={<CheckoutPage />}></Route>
             <Route path="/listProducts/:categorie" element={<ListProductsPage />}></Route>
+            <Route path="/searchPage/:search" element={<SearchPage />}></Route>
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>

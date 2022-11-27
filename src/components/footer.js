@@ -32,6 +32,7 @@ flex-direction: column;
 background-color: #E96324;
 padding-left: 51px;
 padding-top: 33px;
+margin-top: 200px;
 div{
 display: flex;
 flex-direction: column;

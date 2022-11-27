@@ -34,7 +34,7 @@ export default function SignIn() {
         
     }
     return (
-        <>
+        <BackGround>
             <Header />
             <Conteiner>
                 <Titlle>Faça Login</Titlle>
@@ -62,9 +62,14 @@ export default function SignIn() {
 
             </Conteiner>
             <Footer/>
-        </>
+        </BackGround>
     )
 }
+
+
+const BackGround = styled.div`
+background: #F2F2F2;
+`
 
 const Conteiner = styled.div`
     display: flex;

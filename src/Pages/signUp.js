@@ -38,7 +38,7 @@ export default function SignUp() {
         navigate("/");
     }
     return (
-        <>
+        <BackGround>
             <Header />
             <Conteiner>
                 <Titlle>Cadastro</Titlle>
@@ -83,9 +83,16 @@ export default function SignUp() {
 
             </Conteiner>
             <Footer/>
-        </>
+        </BackGround>
     )
 }
+
+
+
+
+const BackGround = styled.div`
+background: #F2F2F2;
+`
 
 const Conteiner = styled.div`
     display: flex;

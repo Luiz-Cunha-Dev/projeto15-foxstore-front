@@ -4,14 +4,24 @@ import carrinho from "../img/carrinho.png"
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Header() {
+export default function Header({quantity}) {
 
-const {username} = useContext(UserContext);
-const user = username.username;
+    const navigate = useNavigate()
+    const [search, setSearch] = useState("")
+    const {productsCart} = useContext(UserContext)
+    const {username} = useContext(UserContext);
+    const user = username.username;
 
-console.log("AQUIIIII TA O USER:")
-console.log(user);
+
+    function searchFor(){
+        if(search !== ""){
+            navigate(`/searchPage/${search.toLowerCase()}`)
+            window.location.reload()
+        }
+    }
 
 if (username === null || username === undefined || window.location.pathname === "/signin" || window.location.pathname === "/signup") {
         return (
@@ -20,49 +30,50 @@ if (username === null || username === undefined || window.location.pathname === 
                     <Link to="/">
                         <img src={raposa} alt="logo" />
                     </Link>
-                    <input type="text" placeholder="Pesquisar" />
+                    <input type="text" placeholder="Pesquisar" value={search} onChange={e => setSearch(e.target.value)} />
                     <button>
-                        <img src="https://cdn-icons-png.flaticon.com/512/49/49116.png" alt="lupa" />
+                        <img onClick={searchFor} src="https://cdn-icons-png.flaticon.com/512/49/49116.png" alt="lupa" />
                     </button>
                 </div>
                 <StyleOptions>
                     <Link to="/signUp">
-                        <span>Cadastrar</span>
+                        <p>Cadastrar</p>
                     </Link>
                     <Link to="/signIn">
-                        <span>Entrar</span>
+                        <p>Entrar</p>
                     </Link>
                     <Link to="/cart">
                         <img src={carrinho} alt="carrinho" />
                     </Link>
+                    <span>{productsCart.length}</span>
                 </StyleOptions>
             </StyleHeader>
-
         )
     } else {
         return (
             <StyleHeader>
-                    <div>
-                        <Link to="/">
-                            <img src={raposa} alt="logo" />
-                        </Link>
-                        <input type="text" placeholder="Pesquisar" />
-                        <button>
-                            <img src="https://cdn-icons-png.flaticon.com/512/49/49116.png" alt="lupa" />
-                        </button>
-                    </div>
-                    <StyleOptions>
-                        <Link to="/">
-                            <span>Bem vindo, {user}</span>
-                        </Link>
-                        <Link to="/signin">
-                            <span>Sair</span>
-                        </Link>
-                        <Link to="/cart">
-                            <img src={carrinho} alt="carrinho" />
-                        </Link>
-                    </StyleOptions>
-                </StyleHeader>
+                <div>
+                    <Link to="/">
+                        <img src={raposa} alt="logo" />
+                    </Link>
+                    <input type="text" placeholder="Pesquisar" value={search} onChange={e => setSearch(e.target.value)} />
+                    <button>
+                        <img onClick={searchFor} src="https://cdn-icons-png.flaticon.com/512/49/49116.png" alt="lupa" />
+                    </button>
+                </div>
+                <StyleOptions>
+                    <Link to="/">
+                        <p>Bem vindo, {user}</p>
+                    </Link>
+                    <Link to="/signIn">
+                        <p>Sair</p>
+                    </Link>
+                    <Link to="/cart">
+                        <img src={carrinho} alt="carrinho" />
+                    </Link>
+                    <span>{productsCart.length}</span>
+                </StyleOptions>
+            </StyleHeader>
         )
     }
 }
@@ -103,6 +114,12 @@ justify-content: space-between;
 input{
 width: 408px;
 height: 55px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 300;
+font-size: 25px;
+line-height: 38px;
+color: black;
 border: 2px solid black;
 border-radius: 15px;
 padding-left: 15px;
@@ -116,14 +133,30 @@ font-size: 25px;
 line-height: 38px;
 color: black;
 }
+
 }
+@media (max-width: 400px){
+    justify-content: center;
+    input{
+       display: none;
+    }
+    button{
+        display: none;
+    }
+    p{
+        margin-left: 10px;
+    }
+    img{
+        width: 60px;
+    }
 `
 
 const StyleOptions = styled.div`
 display: flex;
 align-items: center;
 justify-content: space-between;
-span{
+position: relative;
+p{
 font-family: 'Poppins';
 font-style: normal;
 font-weight: 600;
@@ -135,5 +168,30 @@ margin-right: 50px;
 img{
     width: 45px;
     border-radius: 15px;
+}
+span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: black;
+    width: 35px;
+    height: 35px;
+    color: #fff;
+    border-radius: 25px;
+    position: absolute;
+    top: -10px;
+    right: -20px;
+    font-size: 17px;
+    line-height: 20px;
+    text-align: center;
+    font-family: 'Poppins';
+    font-style: normal;
+}
+
+@media (max-width: 400px){
+    
+    p{
+        font-size: 18px;
+    }
 }
 `

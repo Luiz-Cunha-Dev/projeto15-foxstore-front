@@ -33,7 +33,7 @@ export default function ProductPage() {
     } , [])
 
     return (
-        <>
+        <BackGround>
             <Header/>
             <ProductPageStyle>
                 <Frame>
@@ -57,9 +57,13 @@ export default function ProductPage() {
                 <OtherProducts categorie={selectedProduct[0].categorie} products={products}/>
             </ProductPageStyle>
             <Footer/>
-        </>
+        </BackGround>
     )
 }
+
+const BackGround = styled.div`
+background: #F2F2F2;
+`
 
 const ProductPageStyle = styled.div`
 background: #F2F2F2;

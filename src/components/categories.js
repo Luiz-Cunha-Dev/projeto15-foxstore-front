@@ -66,4 +66,9 @@ img{
    width: 45px;
    border-radius: 15px;
 }
+
+@media (max-width: 400px) {
+   display: none;
+  
+}
 `

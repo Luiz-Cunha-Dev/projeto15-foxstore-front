@@ -50,6 +50,7 @@ function Item(props){
 
 
 const StyleQuickView = styled.div`
+
 width: 100%;
 height: 120%;
 display: flex;
@@ -67,6 +68,9 @@ display: flex;
 padding-left: 30px;
 padding-top: 20px;
 align-items: center;
+@media (max-width: 400px) {
+    flex-wrap: wrap;
+}
 `
 
 const StyleItem = styled.div`
