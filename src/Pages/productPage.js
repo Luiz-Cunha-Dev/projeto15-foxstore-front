@@ -67,18 +67,22 @@ background: #F2F2F2;
 
 const ProductPageStyle = styled.div`
 background: #F2F2F2;
-width: 100%;
-height: 100%;
 padding-top: 20px;
 display: flex;
 flex-direction: column;
-padding-left: 180px;
+
 `
 const ImageStyle = styled.div`
     img{
-        width: 600px;
+        width: 400px;
         margin: 30px;
         border-radius: 10px;
+    }
+    @media (max-width: 400px) {
+        img{
+            width: 100px;
+
+        }
     }
 `
 
@@ -89,14 +93,13 @@ flex-direction: column;
 margin-left: 10%;
 margin-top: 5%;
 h1{
-    width: 600px;
     font-family: 'Poppins';
     font-size: 35px;
     font-weight: bold;
     color: #000000;
     text-transform: none;
     line-height: 1.1;
-    margin-bottom: 25%;
+    margin-bottom: 2%;
 }
 h2{
     font-family: 'Poppins';
@@ -140,10 +143,21 @@ span{
     font-weight: normal;
     color: rgb(102, 102, 102);
 }
+@media (max-width: 400px) {
+    h1{
+        font-size: 20px;
+    }
+    b{
+        font-size: 18px;
+    }
+    h2{
+        font-size: 15px;
+        line-height: 15px;
+    }
+}
 `
 
 const Frame= styled.div`
-width: 1500px;
 display: flex;
 margin-top: 100px;
 background-color: white;
@@ -151,7 +165,6 @@ border-radius: 20px;
 `
 
 const Description = styled.div`
-width: 1500px;
 height: 100%;
 border-radius: 20px;
 margin-top: 80px;
