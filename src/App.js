@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes} from "react-router-dom";
 import UserContext from "./contexts/UserContext";
 import HomePage from "./Pages/homePage";
 import SignIn from "./Pages/signInPage";
@@ -14,10 +14,19 @@ import axios from "axios";
 export default function App() {
 
   const [token, setToken] = useState(localStorage.getItem("token"))
+  const [productsCart, setProductsCart] = useState([])
+
   function setAndPersistToken(token) {
     setToken(token);
     localStorage.setItem("token", token);
   }
+
+  const config = {
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+}
+
   function sendCart(name) {
     const Url = "https://foxstore.onrender.com/cart"
 
@@ -25,11 +34,7 @@ export default function App() {
         "name": name,
         "qtde": 1
     }
-    const config = {
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    }
+
     const promise = axios.post(Url, body, config)
 
     promise.then((res) => {
@@ -40,10 +45,22 @@ export default function App() {
     });
   }
 
+  function loadCart(setProductsCart){
+            const URL = "https://foxstore.onrender.com/cart"
+        
+        axios.get(URL, config)
+            .then(res => {
+                setProductsCart(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+  }
+
 
   return (
     <>
-      <UserContext.Provider value={{ token, setToken, setAndPersistToken, sendCart }}>
+      <UserContext.Provider value={{ token, setToken, setAndPersistToken, sendCart, loadCart, config, productsCart, setProductsCart }}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />}></Route>

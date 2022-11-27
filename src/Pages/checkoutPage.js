@@ -32,6 +32,10 @@ export default function CheckoutPage() {
     )
 }
 
+const BackGround = styled.div`
+background: #F2F2F2;
+`
+
 const Texto = styled.p`
     font-size: 20px;
     color: black;

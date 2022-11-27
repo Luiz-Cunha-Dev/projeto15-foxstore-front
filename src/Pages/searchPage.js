@@ -28,7 +28,7 @@ export default function SearchPage() {
     } , [])
 
     return (
-        <>
+        <BackGround>
             <Header/>
             <SearchPageStyle>
             <Title>
@@ -40,7 +40,7 @@ export default function SearchPage() {
                 </Frame>
             </SearchPageStyle>
             <Footer/>
-        </>
+        </BackGround>
     )
 }
 
@@ -58,10 +58,18 @@ function Item(props){
         <p>{props.name}</p>
             </Link>
         <b>R$ {(props.value).toFixed(2).replace(".", ",")}</b>
+        <Link to="/cart">
         <button onClick={() => sendCart(props.name)} >Comprar</button>
+        </Link>
     </StyleItem>
     )
 }
+
+
+
+const BackGround = styled.div`
+background: #F2F2F2;
+`
 
 const SearchPageStyle = styled.div`
 background: #F2F2F2;
