@@ -3,11 +3,15 @@ import raposa from "../img/logo.png"
 import carrinho from "../img/carrinho.png"
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext";
 
-export default function Header({products}) {
+export default function Header({quantity}) {
 
     const navigate = useNavigate()
     const [search, setSearch] = useState("")
+    const {productsCart} = useContext(UserContext)
+
 
     function searchFor(){
         if(search !== ""){
@@ -29,14 +33,15 @@ export default function Header({products}) {
             </div>
             <StyleOptions>
                 <Link to="/signUp">
-                    <span>Cadastrar</span>
+                    <p>Cadastrar</p>
                 </Link>
                 <Link to="/signIn">
-                    <span>Entrar</span>
+                    <p>Entrar</p>
                 </Link>
                 <Link to="/cart">
                     <img src={carrinho} alt="carrinho" />
                 </Link>
+                <span>{productsCart.length}</span>
             </StyleOptions>
         </StyleHeader>
 
@@ -105,7 +110,8 @@ const StyleOptions = styled.div`
 display: flex;
 align-items: center;
 justify-content: space-between;
-span{
+position: relative;
+p{
 font-family: 'Poppins';
 font-style: normal;
 font-weight: 600;
@@ -117,5 +123,23 @@ margin-right: 50px;
 img{
     width: 45px;
     border-radius: 15px;
+}
+span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: black;
+    width: 35px;
+    height: 35px;
+    color: #fff;
+    border-radius: 25px;
+    position: absolute;
+    top: -10px;
+    right: -20px;
+    font-size: 17px;
+    line-height: 20px;
+    text-align: center;
+    font-family: 'Poppins';
+    font-style: normal;
 }
 `

@@ -28,7 +28,7 @@ export default function ListProductsPage() {
     } , [])
 
     return (
-        <>
+        <BackGround>
             <Header/>
             <ListProductsPageStyle>
             <Title>
@@ -39,7 +39,7 @@ export default function ListProductsPage() {
                 </Frame>
             </ListProductsPageStyle>
             <Footer/>
-        </>
+        </BackGround>
     )
 }
 
@@ -57,10 +57,17 @@ function Item(props){
         <p>{props.name}</p>
             </Link>
         <b>R$ {(props.value).toFixed(2).replace(".", ",")}</b>
+        <Link to="/cart">
         <button onClick={() => sendCart(props.name)} >Comprar</button>
+        </Link>
     </StyleItem>
     )
 }
+
+
+const BackGround = styled.div`
+background: #F2F2F2;
+`
 
 const ListProductsPageStyle = styled.div`
 background: #F2F2F2;

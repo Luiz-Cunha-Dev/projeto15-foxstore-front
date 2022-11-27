@@ -7,25 +7,14 @@ import UserContext from "../contexts/UserContext";
 import Footer from "../components/footer";
 
 export default function CartPage() {
+
+    const {loadCart, config, productsCart, setProductsCart} = useContext(UserContext)
     
-    const { token } = useContext(UserContext);
-    const [products, setProducts] = useState([])
     const [checkoutpage, setCheckoutpage] = useState(false)
-    const config = {
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    }
+    const [cartNumber, setCartNumber] =useState(0)
+
     useEffect(() => {
-        const URL = "https://foxstore.onrender.com/cart"
-        
-        axios.get(URL, config)
-            .then(res => {
-                setProducts(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        loadCart(setProductsCart);
     }, [])
 
     function Checkout() {
@@ -33,7 +22,7 @@ export default function CartPage() {
         axios.post(URL, {}, config)
             .then(res => {
                 alert("Pedido realizado com sucesso!");
-                setProducts([]);
+                setProductsCart([]);
                 setCheckoutpage(true);
             })
             .catch(err => {
@@ -46,11 +35,11 @@ export default function CartPage() {
        return <Navigate to={"/checkout"}/>
     }else{
         return (
-            <>
-                <Header />
+            <BackGround>
+                <Header/>
                 <Tittle>Meu Carrinho</Tittle>
                 <AlignItems>
-                {products.map((obj, i) => 
+                {productsCart.map((obj, i) => 
                     <StyleItem key={i}>
                         <img src={obj.image} alt="imagem" />
                         <p>{obj.name}</p>
@@ -60,11 +49,15 @@ export default function CartPage() {
                 </AlignItems>
                 <ButtonFinish onClick={ () => { Checkout() } } >Finalizar Compra</ButtonFinish>
                 <Footer/>
-            </>
+            </BackGround>
             )
         }
 }
 
+
+const BackGround = styled.div`
+background: #F2F2F2;
+`
 
 const Tittle = styled.h1`
     font-size: 32px;
