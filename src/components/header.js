@@ -103,7 +103,22 @@ font-size: 25px;
 line-height: 38px;
 color: black;
 }
+
 }
+@media (max-width: 400px){
+    justify-content: center;
+    input{
+       display: none;
+    }
+    button{
+        display: none;
+    }
+    p{
+        margin-left: 10px;
+    }
+    img{
+        width: 60px;
+    }
 `
 
 const StyleOptions = styled.div`
@@ -141,5 +156,12 @@ span{
     text-align: center;
     font-family: 'Poppins';
     font-style: normal;
+}
+
+@media (max-width: 400px){
+    
+    p{
+        font-size: 18px;
+    }
 }
 `
