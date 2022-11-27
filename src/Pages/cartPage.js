@@ -29,6 +29,10 @@ export default function CartPage() {
                 console.log(err);
             })
     }
+
+    function removeProductCart(item){
+        console.log(item)
+    }
     
 
     if (checkoutpage) {
@@ -45,6 +49,7 @@ export default function CartPage() {
                         <img src={obj.image} alt="imagem" />
                         <p>{obj.name}</p>
                         <b>R$ {(obj.value).toFixed(2).replace(".", ",") }</b>
+                        <RemoveButton onClick={() => removeProductCart(obj.name)}>Remover</RemoveButton>
                     </StyleItem>
                 )}
                 </AlignItems>
@@ -57,6 +62,19 @@ export default function CartPage() {
             )
         }
 }
+const RemoveButton = styled.button`
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: lightgray;
+    :hover {
+        color: red;
+        opacity: 0.8;
+        cursor: pointer;
+    }
+`
 
 const Container = styled.div`
     display: flex;
@@ -108,6 +126,7 @@ const ButtonFinish = styled.button`
     
 `
 const StyleItem = styled.div`
+position: relative;
 width: 250px;
 display: flex;
 flex-direction: column;
