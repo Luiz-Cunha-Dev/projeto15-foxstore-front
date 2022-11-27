@@ -25,7 +25,7 @@ export default function HomePage() {
 
     return (
         <>
-            <Header/>
+            <Header products={products}/>
             <HomePageStyle>
                 <Initial>
                 <Categories/>

@@ -1,18 +1,30 @@
 import styled from "styled-components";
 import raposa from "../img/logo.png"
 import carrinho from "../img/carrinho.png"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-export default function Header() {
+export default function Header({products}) {
+
+    const navigate = useNavigate()
+    const [search, setSearch] = useState("")
+
+    function searchFor(){
+        if(search !== ""){
+            navigate(`/searchPage/${search.toLowerCase()}`)
+            window.location.reload()
+        }
+    }
+
     return (
         <StyleHeader>
             <div>
                 <Link to="/">
                     <img src={raposa} alt="logo" />
                 </Link>
-                <input type="text" placeholder="Pesquisar" />
+                <input type="text" placeholder="Pesquisar" value={search} onChange={e => setSearch(e.target.value)}/>
                 <button>
-                    <img src="https://cdn-icons-png.flaticon.com/512/49/49116.png" alt="lupa" />
+                    <img onClick={searchFor} src="https://cdn-icons-png.flaticon.com/512/49/49116.png" alt="lupa" />
                 </button>
             </div>
             <StyleOptions>
@@ -67,6 +79,12 @@ justify-content: space-between;
 input{
 width: 408px;
 height: 55px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 300;
+font-size: 25px;
+line-height: 38px;
+color: black;
 border: 2px solid black;
 border-radius: 15px;
 padding-left: 15px;

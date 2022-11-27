@@ -7,6 +7,7 @@ import SignUp from "./Pages/signUp";
 import ProductPage from "./Pages/productPage";
 import CartPage from "./Pages/cartPage";
 import ListProductsPage from "./Pages/listProductsPage";
+import SearchPage from "./Pages/searchPage";
 import axios from "axios";
 
 export default function App() {
@@ -50,6 +51,7 @@ export default function App() {
             <Route path="/product/:id" element={<ProductPage />}></Route>
             <Route path="/cart" element={<CartPage />}></Route>
             <Route path="/listProducts/:categorie" element={<ListProductsPage />}></Route>
+            <Route path="/searchPage/:search" element={<SearchPage />}></Route>
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>
