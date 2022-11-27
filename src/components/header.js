@@ -12,8 +12,7 @@ export default function Header({quantity}) {
     const navigate = useNavigate()
     const [search, setSearch] = useState("")
     const {productsCart} = useContext(UserContext)
-    const {username} = useContext(UserContext);
-    const user = username.username;
+    const {username} = useContext(UserContext)
 
 
     function searchFor(){
@@ -63,11 +62,9 @@ if (username === null || username === undefined || window.location.pathname === 
                 </div>
                 <StyleOptions>
                     <Link to="/">
-                        <p>Bem vindo, {user}</p>
+                        <p>Bem vindo, {username}</p>
                     </Link>
-                    <Link to="/signIn">
-                        <p>Sair</p>
-                    </Link>
+                        <p >Sair</p>
                     <Link to="/cart">
                         <img src={carrinho} alt="carrinho" />
                     </Link>

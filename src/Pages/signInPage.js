@@ -11,11 +11,8 @@ export default function SignIn() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const body = {
-        email,
-        password,
-    }
-    const { setAndPersistToken, setUsername } = useContext(UserContext);
+    const body = {email, password,}
+    const { setAndPersistToken, setAndPersistUsername } = useContext(UserContext);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -23,9 +20,8 @@ export default function SignIn() {
         const promise = axios.post(Url, body)
 
         promise.then((res) => {
-            setAndPersistToken(res.data.token)
-            setUsername(res.data.name)
-            localStorage.setItem("username", JSON.stringify({username: res.data.name}))
+            setAndPersistToken(res.data.token);
+            setAndPersistUsername(res.data.name);
             navigate("/");
         });
         promise.catch((erro) => {

@@ -10,12 +10,11 @@ import CheckoutPage from "./Pages/checkoutPage";
 import ListProductsPage from "./Pages/listProductsPage";
 import SearchPage from "./Pages/searchPage";
 import axios from "axios";
-import Header from "./components/header";
 
 export default function App() {
 
   const [token, setToken] = useState(localStorage.getItem("token"))
-  const [username, setUsername] = useState(localStorage.getItem('username') ? JSON.parse(localStorage.getItem('username')) : null);
+  const [username, setUsername] = useState(localStorage.getItem('username'));
   const [productsCart, setProductsCart] = useState([])
   function setAndPersistToken(token) {
     setToken(token);
@@ -27,6 +26,12 @@ export default function App() {
         "Authorization": `Bearer ${token}`
     }
 }
+
+function setAndPersistUsername(username) {
+  setUsername(username);
+  localStorage.setItem("username", username);
+}
+
 
   function sendCart(name) {
     const Url = "https://foxstore.onrender.com/cart"
@@ -65,7 +70,7 @@ export default function App() {
 
   return (
     <>
-      <UserContext.Provider value={{ token, setToken, setAndPersistToken, sendCart, loadCart, username, setUsername, config, productsCart, setProductsCart }}>
+      <UserContext.Provider value={{ token, setToken, setAndPersistToken, setAndPersistUsername ,sendCart, loadCart, username, setUsername, config, productsCart, setProductsCart }}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />}></Route>
