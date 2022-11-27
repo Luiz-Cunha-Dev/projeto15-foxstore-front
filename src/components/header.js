@@ -14,6 +14,12 @@ export default function Header({quantity}) {
     const {productsCart} = useContext(UserContext)
     const {username} = useContext(UserContext)
 
+    function logout() {
+        navigate("/");
+        window.location.reload();
+        localStorage.clear();
+    }
+
 
     function searchFor(){
         if(search !== ""){
@@ -64,7 +70,7 @@ if (username === null || username === undefined || window.location.pathname === 
                     <Link to="/">
                         <p>Bem vindo, {username}</p>
                     </Link>
-                        <p >Sair</p>
+                        <p onClick={() => logout()}>Sair</p>
                     <Link to="/cart">
                         <img src={carrinho} alt="carrinho" />
                     </Link>
