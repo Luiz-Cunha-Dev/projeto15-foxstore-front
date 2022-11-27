@@ -60,6 +60,10 @@ export default function CartPage() {
 
 const Container = styled.div`
     display: flex;
+    @media (max-width: 400px) {
+        flex-direction: column;
+        
+    }
 `
 
 const AlignItems = styled.div`
