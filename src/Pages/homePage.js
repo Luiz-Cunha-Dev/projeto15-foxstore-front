@@ -41,6 +41,7 @@ export default function HomePage() {
     )
 }
 
+
 const HomePageStyle = styled.div`
 background: #F2F2F2;
 width: 100%;

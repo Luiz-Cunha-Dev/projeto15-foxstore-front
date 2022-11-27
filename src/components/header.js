@@ -2,33 +2,69 @@ import styled from "styled-components";
 import raposa from "../img/logo.png"
 import carrinho from "../img/carrinho.png"
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext";
 
 export default function Header() {
-    return (
-        <StyleHeader>
-            <div>
-                <Link to="/">
-                    <img src={raposa} alt="logo" />
-                </Link>
-                <input type="text" placeholder="Pesquisar" />
-                <button>
-                    <img src="https://cdn-icons-png.flaticon.com/512/49/49116.png" alt="lupa" />
-                </button>
-            </div>
-            <StyleOptions>
-                <Link to="/signUp">
-                    <span>Cadastrar</span>
-                </Link>
-                <Link to="/signIn">
-                    <span>Entrar</span>
-                </Link>
-                <Link to="/cart">
-                    <img src={carrinho} alt="carrinho" />
-                </Link>
-            </StyleOptions>
-        </StyleHeader>
 
-    )
+const {username} = useContext(UserContext);
+const user = username.username;
+
+console.log("AQUIIIII TA O USER:")
+console.log(user);
+
+if (username === null || username === undefined || window.location.pathname === "/signin" || window.location.pathname === "/signup") {
+        return (
+            <StyleHeader>
+                <div>
+                    <Link to="/">
+                        <img src={raposa} alt="logo" />
+                    </Link>
+                    <input type="text" placeholder="Pesquisar" />
+                    <button>
+                        <img src="https://cdn-icons-png.flaticon.com/512/49/49116.png" alt="lupa" />
+                    </button>
+                </div>
+                <StyleOptions>
+                    <Link to="/signUp">
+                        <span>Cadastrar</span>
+                    </Link>
+                    <Link to="/signIn">
+                        <span>Entrar</span>
+                    </Link>
+                    <Link to="/cart">
+                        <img src={carrinho} alt="carrinho" />
+                    </Link>
+                </StyleOptions>
+            </StyleHeader>
+
+        )
+    } else {
+        return (
+            <StyleHeader>
+                    <div>
+                        <Link to="/">
+                            <img src={raposa} alt="logo" />
+                        </Link>
+                        <input type="text" placeholder="Pesquisar" />
+                        <button>
+                            <img src="https://cdn-icons-png.flaticon.com/512/49/49116.png" alt="lupa" />
+                        </button>
+                    </div>
+                    <StyleOptions>
+                        <Link to="/">
+                            <span>Bem vindo, {user}</span>
+                        </Link>
+                        <Link to="/signin">
+                            <span>Sair</span>
+                        </Link>
+                        <Link to="/cart">
+                            <img src={carrinho} alt="carrinho" />
+                        </Link>
+                    </StyleOptions>
+                </StyleHeader>
+        )
+    }
 }
 
 const StyleHeader = styled.div`

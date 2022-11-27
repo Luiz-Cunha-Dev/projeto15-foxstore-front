@@ -13,6 +13,9 @@ import axios from "axios";
 export default function App() {
 
   const [token, setToken] = useState(localStorage.getItem("token"))
+  const [username, setUsername] = useState(localStorage.getItem('username') ? JSON.parse(localStorage.getItem('username')) : null);
+
+  
   function setAndPersistToken(token) {
     setToken(token);
     localStorage.setItem("token", token);
@@ -42,7 +45,7 @@ export default function App() {
 
   return (
     <>
-      <UserContext.Provider value={{ token, setToken, setAndPersistToken, sendCart }}>
+      <UserContext.Provider value={{ token, setToken, username, setUsername, setAndPersistToken, sendCart }}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />}></Route>

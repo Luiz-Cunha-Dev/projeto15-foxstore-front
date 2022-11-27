@@ -15,7 +15,7 @@ export default function SignIn() {
         email,
         password,
     }
-    const { setAndPersistToken } = useContext(UserContext);
+    const { setAndPersistToken, setUsername } = useContext(UserContext);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -24,6 +24,8 @@ export default function SignIn() {
 
         promise.then((res) => {
             setAndPersistToken(res.data.token)
+            setUsername(res.data.name)
+            localStorage.setItem("username", JSON.stringify({username: res.data.name}))
             navigate("/");
         });
         promise.catch((erro) => {

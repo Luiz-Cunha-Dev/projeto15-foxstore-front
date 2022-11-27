@@ -25,15 +25,16 @@ export default function Categories(){
 
 
 const StyleCategories = styled.div`
-width: 233px;
+width: 250px;
 height: 530px;
 display: flex;
+padding: 0 12px 70px 12px;
 flex-direction: column;
-align-items: center;
 background-color: #E96324;
 border-radius: 10px;
 
 h1{
+text-align: center;
 font-family: 'Poppins';
 font-style: normal;
 font-weight: 500;
@@ -42,6 +43,7 @@ line-height: 55px;
 color: #FFFFFF;
 margin-bottom: 20px;
 }
+
 p{
 font-family: 'Poppins';
 font-style: normal;
@@ -49,7 +51,17 @@ font-weight: 400;
 font-size: 28px;
 line-height: 45px;
 color: #FFFFFF;
+text-align: flex-start;
+margin-bottom: 10px;
+:hover{
+      color: #EDE6E6;
+      cursor: pointer;
+      background-color: #E25C1D;
 }
+}
+
+
+
 img{
    width: 45px;
    border-radius: 15px;

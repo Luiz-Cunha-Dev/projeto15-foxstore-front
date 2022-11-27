@@ -6,11 +6,7 @@ import UserContext from "../contexts/UserContext"
 export default function CheckoutPage() {
     const [orders, setOrders] = useState([]);
     const { token } = useContext(UserContext);
-    const config = {
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    }
+    const config = {headers: {"Authorization": `Bearer ${token}`}}
 
     useEffect(() => {
         const URL = "https://foxstore.onrender.com/checkout"
