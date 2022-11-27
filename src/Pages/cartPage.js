@@ -29,9 +29,21 @@ export default function CartPage() {
                 console.log(err);
             })
     }
+    const UrlCart = "https://foxstore.onrender.com/cart"
+
 
     function removeProductCart(item){
-        console.log(item)
+        const body = {
+            _id:item
+         }
+        
+        const promise = axios.delete(UrlCart, body)
+        promise.then(() => {
+            console.log("deu certo")
+
+        })
+
+        promise.catch((error) => console.log("error.response.data"))
     }
     
 
@@ -49,7 +61,7 @@ export default function CartPage() {
                         <img src={obj.image} alt="imagem" />
                         <p>{obj.name}</p>
                         <b>R$ {(obj.value).toFixed(2).replace(".", ",") }</b>
-                        <RemoveButton onClick={() => removeProductCart(obj.name)}>Remover</RemoveButton>
+                        <RemoveButton onClick={() => removeProductCart(obj)}>Remover</RemoveButton>
                     </StyleItem>
                 )}
                 </AlignItems>
