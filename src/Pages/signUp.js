@@ -1,41 +1,82 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import styled from "styled-components"
 import {useNavigate} from "react-router-dom"
 import Header from "../components/header";
 import Footer from "../components/footer";
 import axios from "axios";
+import swal from "sweetalert";
+import { ThreeDots } from 'react-loader-spinner'
 
-export default function SignUp() {
+export default function SignUp(props) {
     const Url = "https://foxstore.onrender.com/signup"
     const navigate = useNavigate();
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [checkpasword, setCheckpasword] = useState('')
+    const [wrongInputs, setWrongInputs]= useState([])
+    const [buttonText, setButtonText] = useState("Cadastrar");
     const body = {
         name,
         email,
         password,
         checkpasword
     }
+    const inputRef1 = useRef("")
+    const inputRef2 = useRef("")
+    const focus1 = () => {
+        inputRef1.current.focus()
+    }
+    const focus2 = () => {
+        inputRef2.current.focus()
+    }
 
-    function handleSubmit(e) {
+   async function handleSubmit(e) {
         e.preventDefault();
+
+        setButtonText(<ThreeDots
+            height="80"
+            width="80"
+            radius="9"
+            color="white"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClassName=""
+            visible={true}
+        />)
 
         const promise = axios.post(Url, body);
 
         if (checkpasword === password) {
             promise.then(() => {
-                navigate("/");
+                setWrongInputs([])
+                swal({
+                    icon: "success",
+                    text: "Registrado com Sucesso!",
+                  });
+                  setButtonText("Cadastrar")
+                navigate("/signIn");
             });
-            promise.catch((erro) => {
-                console.log(erro)
+            promise.catch( async (erro) => {
+                setWrongInputs([...wrongInputs, 1])
+                await swal({
+                    icon: "error",
+                    text: erro.response.data,
+                  });
+                  setButtonText("Cadastrar")
+                  focus1();
             });
         } else {
-            alert("Digite a mesma senha para checkpaswordmar!")
-            
+            setButtonText("Cadastrar")
+            setWrongInputs([...wrongInputs, 2])
+
+            await swal({
+                icon: "error",  
+                text: "A confirmação de senha não confere!",
+              });
+              focus2();
+        
         }
-        navigate("/");
     }
     return (
         <BackGround>
@@ -44,40 +85,46 @@ export default function SignUp() {
                 <Titlle>Cadastro</Titlle>
                 <Form onSubmit={handleSubmit}>
 
-                    <input
+                    <StyleInput
                         onChange={e => setName(e.target.value)}
                         value={name}
                         id="nome"
                         placeholder="Nome"
                         name='none' type='text'
-                        required></input>
+                        required></StyleInput>
 
 
-                    <input
+                    <StyleInput
                         onChange={e => setEmail(e.target.value)}
                         value={email}
                         id="email"
                         placeholder="E-mail"
                         name='email' type='email'
-                        required></input>
+                        required 
+                        ref={inputRef1}
+                        color={wrongInputs.includes(1) ? "#F59E87" : "white"}>
+                        </StyleInput>
 
-                    <input
+                    <StyleInput
                         onChange={e => setPassword(e.target.value)}
                         value={password}
                         id="senha"
                         placeholder="Senha"
                         name='senha' type='password'
-                        required></input>
+                        required></StyleInput>
 
-                    <input
+                    <StyleInput
                         onChange={e => setCheckpasword(e.target.value)}
                         value={checkpasword}
                         id="checkpaswordm"
                         placeholder="Confirme a senha"
                         name='checkpaswordm' type='password'
-                        required></input>
+                        required
+                        ref={inputRef2}
+                        color={wrongInputs.includes(2) ? "#F59E87" : "white"}>
+                        </StyleInput>
 
-                    <button type='submit'> Cadastrar </button>
+                    <button type='submit'> {buttonText} </button>
 
                 </Form>
 
@@ -106,7 +153,7 @@ const Titlle = styled.h1`
   
     margin-bottom: 24px;
     font-family: 'Saira Stencil One';
-    font-weight: 400;
+    font-weight: bold;
     font-size: 32px;
     line-height: 50px;
 `
@@ -114,23 +161,6 @@ const Form = styled.form`
     display: flex;
     flex-direction: column;
     justify-items: center;
-    
-    input{
-    margin-bottom: 13px ;
-    width: 100%;
-    height: 58px;
-    border-radius: 5px;
-    border:  1px solid #E96324;
-    ::placeholder{
-        font-family: 'Raleway';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 20px;
-        line-height: 23px;
-        color: black;
-       
-        }
-    }
     button{
         width: 326px;
         height: 46px;
@@ -141,5 +171,24 @@ const Form = styled.form`
         font-weight: 700;
         font-size: 20px;
         line-height: 23px;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
+`
+const StyleInput = styled.input`
+    margin-bottom: 13px ;
+    width: 100%;
+    height: 58px;
+    border-radius: 5px;
+    border:  1px solid #E96324;
+    background-color: ${props => props.color};
+    ::placeholder{
+        font-family: 'Raleway';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 23px;
+        color: black;
 `

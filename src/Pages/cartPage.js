@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Header from "../components/header";
 import UserContext from "../contexts/UserContext";
 import Footer from "../components/footer";
+import swal from "sweetalert";
 
 export default function CartPage() {
 
@@ -36,12 +37,17 @@ export default function CartPage() {
     }, [productsCart])
 
     function Checkout() {
-        console.log(token);
         if(token === null){
-            alert("É necessario ter uma conta para comprar produtos!")
+            swal({
+                icon: "error",
+                text: "É necessario ter uma conta para comprar produtos!",
+              });
             return
         }else if(productsCart.length === 0){
-            alert("Adicione algo no carrinho antes de finalizar a compra!")
+            swal({
+                icon: "error",
+                text: "Adicione algo no carrinho antes de finalizar a compra!",
+              });
             return
         }
         const URL = "https://foxstore.onrender.com/checkout"

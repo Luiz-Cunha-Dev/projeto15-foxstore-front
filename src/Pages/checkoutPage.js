@@ -9,8 +9,6 @@ import { Link } from "react-router-dom";
 export default function CheckoutPage() {
     const { productsCheckout } = useContext(UserContext);
 
-    console.log(productsCheckout);
-
 
     return (
         <>
