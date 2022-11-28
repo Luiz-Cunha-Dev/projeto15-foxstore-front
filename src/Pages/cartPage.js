@@ -12,9 +12,11 @@ export default function CartPage() {
     
     const [checkoutpage, setCheckoutpage] = useState(false)
     const [selectedProducts, setSelectedProducts] = useState([])
+    const [price, setPrice] = useState(0)
 
     useEffect(() => {
         loadCart(setProductsCart);
+
     }, [])
 
     useEffect(() => {
@@ -24,6 +26,10 @@ export default function CartPage() {
             if(!products.has(p.name)){
                 products.set(p.name, p)
             }
+
+            let priceProducts = 0;
+            productsCart.forEach(p => priceProducts+= p.value)
+            setPrice(priceProducts.toFixed(2).replace(".", ","))
         });
 
         setSelectedProducts([...products.values()])
@@ -54,6 +60,9 @@ export default function CartPage() {
             .catch(err => {
                 console.log(err);
             })
+            if(productsCart.length === 1){
+                window.location.reload()
+            }
     }
 
     function contador(obj){
@@ -81,32 +90,73 @@ export default function CartPage() {
                         <span>{contador(obj)}</span>
                         <button onClick={() => sendCart(obj.name)}>+</button>
                         </div>
-
                     </StyleItem>
                 )}
                 </AlignItems>
-
+                    <PaymentInformation>
+                        <h1>Informações de pagamento</h1>
+                        {productsCart.map(p => <p><span>{p.name}</span><span>R$ {productsCart !== [] ? p.value.toFixed(2).replace(".", ",") : ""}</span></p>)}
+                        <p><span><b>Total</b></span><span><b>R$ {price}</b></span></p>
+                        <ButtonFinish onClick={ () => { Checkout() } } >Finalizar Compra</ButtonFinish>
+                    </PaymentInformation>
                
-                <ButtonFinish onClick={ () => { Checkout() } } >Finalizar Compra</ButtonFinish>
+
                 </Container>
                 <Footer/>
             </BackGround>
             )
         }
 }
-const RemoveButton = styled.p`
-    width: 90px;
-    position: absolute;
-    top: 20px;
-    right: 20px;
+const PaymentInformation = styled.div`
+    width: 800px;
+    height: 100%;
     border: none;
     border-radius: 5px;
-    background-color: lightgray;
+    background-color: white;
     text-align:center;
-    :hover {
-        color: red;
-        opacity: 0.8;
-        cursor: pointer;
+    border-radius: 20px;
+    padding-bottom: 50px;
+    b{
+        font-weight: bold;
+        font-size: 25px;
+    }
+    h1{
+        font-size: 32px;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    }
+    p{
+        display: flex;
+        justify-content: space-between;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    span:nth-child(1){
+        width: 400px;
+        height: 30px;
+        text-align: start;
+        display: flex;
+        align-items: center;
+    }
+    p:last-of-type{
+        display: flex;
+        justify-content: space-between;
+        padding-left: 30px;
+        padding-right: 30px;
+        margin-top: 50px;
+    }
+    span{
+        font-size: 20px;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: start;
+    margin-top: 20px;
     }
 `
 
@@ -123,8 +173,9 @@ const AlignItems = styled.div`
     flex-wrap: wrap;
     margin-top: 2%;
     margin-bottom: 2%;
-    margin-left: 2%;
-    margin-right: 2%;
+    margin-left: 4%;
+    margin-right: 0.5%;
+    width: 950px;
 `
 
 const BackGround = styled.div`
@@ -139,6 +190,7 @@ const Tittle = styled.h1`
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    margin-bottom: 50px;
 `
 
 const ButtonFinish = styled.button`
@@ -150,7 +202,7 @@ const ButtonFinish = styled.button`
     font-size: 20px;
     color: black;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 50px;
     :hover {
         background-color: #FFC700;
         opacity: 0.8;
@@ -164,12 +216,13 @@ position: relative;
 width: 250px;
 display: flex;
 flex-direction: column;
-margin-right: 50px;
+margin-right: 40px;
 padding-left: 15px;
 padding-top: 10px;
-margin-top: 2%;
+margin-top: 4%;
 position: relative;
 background-color: white;
+border-radius: 10px;
 img{
     width: 83px;
     height: 105px;
