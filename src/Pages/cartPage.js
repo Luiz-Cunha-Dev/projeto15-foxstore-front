@@ -11,7 +11,6 @@ export default function CartPage() {
     const {loadCart, config, productsCart, setProductsCart} = useContext(UserContext)
     
     const [checkoutpage, setCheckoutpage] = useState(false)
-    const [cartNumber, setCartNumber] =useState(0)
 
     useEffect(() => {
         loadCart(setProductsCart);
@@ -29,21 +28,20 @@ export default function CartPage() {
                 console.log(err);
             })
     }
-    const UrlCart = "https://foxstore.onrender.com/cart"
 
 
-    function removeProductCart(item){
-        const body = {
-            _id:item
-         }
-        
-        const promise = axios.delete(UrlCart, body)
-        promise.then(() => {
-            console.log("deu certo")
 
-        })
+    function removeProductCart(id){
+        const URL = "https://foxstore.onrender.com/cart"
 
-        promise.catch((error) => console.log("error.response.data"))
+         axios.delete(URL, {data: {id}})
+            .then(res => {
+                console.log(res.data.message);
+                loadCart(setProductsCart);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
     
 
@@ -61,7 +59,7 @@ export default function CartPage() {
                         <img src={obj.image} alt="imagem" />
                         <p>{obj.name}</p>
                         <b>R$ {(obj.value).toFixed(2).replace(".", ",") }</b>
-                        <RemoveButton onClick={() => removeProductCart(obj)}>Remover</RemoveButton>
+                        <RemoveButton onClick={() => removeProductCart(obj._id)}>Remover</RemoveButton>
                     </StyleItem>
                 )}
                 </AlignItems>
