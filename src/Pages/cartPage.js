@@ -8,7 +8,7 @@ import Footer from "../components/footer";
 
 export default function CartPage() {
 
-    const {loadCart, config, productsCart, setProductsCart, sendCart} = useContext(UserContext)
+    const {loadCart, config, productsCart, setProductsCart, sendCart, token} = useContext(UserContext)
     
     const [checkoutpage, setCheckoutpage] = useState(false)
     const [selectedProducts, setSelectedProducts] = useState([])
@@ -36,6 +36,14 @@ export default function CartPage() {
     }, [productsCart])
 
     function Checkout() {
+        console.log(token);
+        if(token === null){
+            alert("É necessario ter uma conta para comprar produtos!")
+            return
+        }else if(productsCart.length === 0){
+            alert("Adicione algo no carrinho antes de finalizar a compra!")
+            return
+        }
         const URL = "https://foxstore.onrender.com/checkout"
         axios.post(URL, {}, config)
             .then(res => {
