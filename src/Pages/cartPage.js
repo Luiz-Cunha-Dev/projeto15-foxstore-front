@@ -8,7 +8,7 @@ import Footer from "../components/footer";
 
 export default function CartPage() {
 
-    const {loadCart, config, productsCart, setProductsCart, sendCart, token} = useContext(UserContext)
+    const {loadCart, config, productsCart, setProductsCart, sendCart, token, setProductsCheckout} = useContext(UserContext)
     
     const [checkoutpage, setCheckoutpage] = useState(false)
     const [selectedProducts, setSelectedProducts] = useState([])
@@ -48,6 +48,7 @@ export default function CartPage() {
         axios.post(URL, {}, config)
             .then(res => {
                 alert("Pedido realizado com sucesso!");
+                setProductsCheckout(productsCart)
                 setProductsCart([]);
                 setCheckoutpage(true);
             })
