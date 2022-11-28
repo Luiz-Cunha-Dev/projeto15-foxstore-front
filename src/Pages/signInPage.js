@@ -18,8 +18,12 @@ export default function SignIn() {
     const [wrongInputs, setWrongInputs]= useState([])
     const [buttonText, setButtonText] = useState("Entrar")
     const inputRef1 = useRef("")
+    const inputRef2 = useRef("")
     const focus1 = () => {
         inputRef1.current.focus()
+    }
+    const focus2 = () => {
+        inputRef2.current.focus()
     }
 
     function handleSubmit(e) {
@@ -35,12 +39,19 @@ export default function SignIn() {
             wrapperClassName=""
             visible={true}
         />)
+        let alert = async () => {
+            await swal({
+                icon: "error",
+                text: "senha incorreta",
+              });
+        }
 
         axios.post(Url, body)
         .then(res => {
             setAndPersistToken(res.data.token);
             setAndPersistUsername(res.data.name);
             setWrongInputs([])
+            alert = null
             setButtonText("Entrar")
             navigate("/");
         })
@@ -53,7 +64,12 @@ export default function SignIn() {
                   setButtonText("Entrar")
                   focus1()
         });
-        
+        setTimeout(() => {
+            setWrongInputs([...wrongInputs, 2])
+            setButtonText("Entrar")
+            alert()
+            focus2()
+        }, 8000)
     }
     return (
         <BackGround>
@@ -79,7 +95,9 @@ export default function SignIn() {
                         id="senha"
                         placeholder="Senha"
                         name='senha' type='password'
-                        required>
+                        required
+                        ref={inputRef2}
+                        color={wrongInputs.includes(2) ? "#F59E87" : "white"}>
                         </StyleInput>
 
                     <button type='submit'> {buttonText}</button>
@@ -131,6 +149,7 @@ const Form = styled.form`
         align-items: center;
         color: white;
         justify-content: center;
+        cursor: pointer;
     }
 `
 const StyleInput = styled.input`
