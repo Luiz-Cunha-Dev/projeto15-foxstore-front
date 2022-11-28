@@ -37,7 +37,7 @@ export default function CheckoutPage() {
                 <Subtitle>Você comprou:</Subtitle>
                         {orders.map(order => (
                             <StyleItem key={order.id}>
-                                <StyleImage src="https://imgnike-a.akamaihd.net/1366x1366/0226290L.jpg" alt={order.name}/>
+                                <StyleImage src={ order.image} alt={order.name}/>
                                 <StyleText>
                                     <span><b style={{fontWeight: '600'}}>Produto:</b> {order.name}</span>
                                     <span><b style={{fontWeight: '600'}}>preço:</b> R${order.value},00</span>
