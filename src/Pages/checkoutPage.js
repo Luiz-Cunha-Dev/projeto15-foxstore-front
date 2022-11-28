@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react"
 import {useContext} from "react"
 import UserContext from "../contexts/UserContext"
-import axios from "axios"
 import styled from "styled-components";
 import Header from "../components/header";
 import Footer from "../components/footer";
@@ -9,23 +7,9 @@ import { Link } from "react-router-dom";
 
 
 export default function CheckoutPage() {
-    const [orders, setOrders] = useState([]);
-    const { config } = useContext(UserContext);
+    const { productsCheckout } = useContext(UserContext);
 
-    useEffect( () => {
-        const URL = "https://foxstore.onrender.com/checkout"
- 
-         axios.get(URL, config)
-             .then(res => {       
-                    setOrders([res.data]);
-                    console.log(res)
-             })
-             .catch(err => {
-                 console.log(err);
-             })
-     } , []);
-
-     console.log(orders)
+    console.log(productsCheckout);
 
 
     return (
@@ -35,13 +19,13 @@ export default function CheckoutPage() {
                 <Tittle>Pedido Finalizado com Sucesso</Tittle>
                 <AlignItems>
                 <Subtitle>Você comprou:</Subtitle>
-                        {orders.map(order => (
-                            <StyleItem key={order.id}>
-                                <StyleImage src={ order.image} alt={order.name}/>
+                        {productsCheckout.map(p => (
+                            <StyleItem key={p.id}>
+                                <img src={p.image} alt={p.name}/>
                                 <StyleText>
-                                    <span><b style={{fontWeight: '600'}}>Produto:</b> {order.name}</span>
-                                    <span><b style={{fontWeight: '600'}}>preço:</b> R${order.value},00</span>
-                                    <span><b style={{fontWeight: '600'}}>quantidade:</b> {order.qtde}</span>
+                                    <span><b style={{fontWeight: '600'}}>Produto:</b> {p.name}</span>
+                                    <span><b style={{fontWeight: '600'}}>preço:</b> R${p.value},00</span>
+                                    <span><b style={{fontWeight: '600'}}>quantidade:</b> {p.qtde}</span>
                                 </StyleText>
                             </StyleItem>
                         ))}
@@ -83,7 +67,7 @@ const StyleText = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 10px;
+    margin-left: 30px;
     width: 100%;
     height: 100%;
     span {
@@ -92,15 +76,6 @@ const StyleText = styled.div`
         color: #black;
         margin: 0 0 5px 0;
     }
-`
-
-const StyleImage = styled.img`
-
-    width: 100px;
-    height: 100px;
-    margin-left: 20px;
-    border-radius: 50%;
-
 `
 
 const BackGround = styled.div`
@@ -146,4 +121,9 @@ margin-right: 20px;
 
 background-color: white;
 
+img{
+    width: 100px;
+    height: 100px;
+    margin-left: 20px;
+}
 `

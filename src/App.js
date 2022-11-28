@@ -16,6 +16,7 @@ export default function App() {
   const [token, setToken] = useState(localStorage.getItem("token"))
   const [username, setUsername] = useState(localStorage.getItem('username'));
   const [productsCart, setProductsCart] = useState([])
+  const [productsCheckout, setProductsCheckout] = useState([])
   function setAndPersistToken(token) {
     setToken(token);
     localStorage.setItem("token", token);
@@ -70,7 +71,7 @@ function setAndPersistUsername(username) {
 
   return (
     <>
-      <UserContext.Provider value={{ token, setToken, setAndPersistToken, setAndPersistUsername ,sendCart, loadCart, username, setUsername, config, productsCart, setProductsCart }}>
+      <UserContext.Provider value={{ token, setToken, setAndPersistToken, setAndPersistUsername ,sendCart, loadCart, username, setUsername, config, productsCart, setProductsCart, productsCheckout, setProductsCheckout }}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />}></Route>
