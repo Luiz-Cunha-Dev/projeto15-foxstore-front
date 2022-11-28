@@ -68,6 +68,7 @@ display: flex;
 padding-left: 30px;
 padding-top: 20px;
 align-items: center;
+overflow: scroll;
 @media (max-width: 400px) {
     flex-wrap: wrap;
 }

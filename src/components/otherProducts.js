@@ -64,6 +64,7 @@ display: flex;
 padding-left: 30px;
 padding-top: 20px;
 align-items: center;
+overflow: scroll;
 `
 
 const StyleItem = styled.div`

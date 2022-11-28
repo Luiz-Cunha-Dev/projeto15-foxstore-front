@@ -53,7 +53,10 @@ export default function CartPage() {
         const URL = "https://foxstore.onrender.com/checkout"
         axios.post(URL, {}, config)
             .then(res => {
-                alert("Pedido realizado com sucesso!");
+                swal({
+                    icon: "success",
+                    text: "Pedido realizado com sucesso!",
+                  });
                 setProductsCheckout(productsCart)
                 setProductsCart([]);
                 setCheckoutpage(true);
