@@ -24,6 +24,7 @@ export default function CheckoutPage() {
                                     <span><b style={{fontWeight: '600'}}>Produto:</b> {p.name}</span>
                                     <span><b style={{fontWeight: '600'}}>preço:</b> R${p.value},00</span>
                                     <span><b style={{fontWeight: '600'}}>quantidade:</b> {p.qtde}</span>
+                                    <span><b style={{fontWeight: '600'}}>Forma de pagamento:</b>boleto</span>
                                 </StyleText>
                             </StyleItem>
                         ))}
