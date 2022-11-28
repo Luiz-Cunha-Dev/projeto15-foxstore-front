@@ -1,41 +1,42 @@
-import styled from "styled-components"
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import axios from "axios"
-import UserContext from "../contexts/UserContext"
 
 export default function CheckoutPage() {
     const [orders, setOrders] = useState([]);
-    const { token } = useContext(UserContext);
-    const config = {headers: {"Authorization": `Bearer ${token}`}}
 
-    useEffect(() => {
+    useEffect( () => {
         const URL = "https://foxstore.onrender.com/checkout"
-        
-        axios.get(URL, config)
-            .then(res => {
+ 
+         axios.get(URL)
+             .then(res => {            
                 setOrders(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }, [])
-
-    console.log(orders);
+             })
+             .catch(err => {
+                 console.log("DEU RUIM: ", err);
+             })
+     } , [])
 
 
-    return (
-        <Texto>Compra realizada com sucesso!</Texto>
-    )
+
+     if (orders.length === 0) {
+         return (
+             <div>
+                 <h1>Carregando...</h1>
+             </div>
+         )
+     }
+     else{
+            return (
+                <div>
+                    <h1>Checkout</h1>
+                    <div>
+                        {orders.map(obj => 
+                            <div>
+                                <h2>{obj.name}</h2>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )
+     }
 }
-
-const BackGround = styled.div`
-background: #F2F2F2;
-`
-
-const Texto = styled.p`
-    font-size: 20px;
-    color: black;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 700;
-    margin-top: 10px;
-`
