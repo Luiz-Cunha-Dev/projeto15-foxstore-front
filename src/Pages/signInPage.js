@@ -35,12 +35,19 @@ export default function SignIn() {
             wrapperClassName=""
             visible={true}
         />)
+        let alert = () => {
+            swal({
+                icon: "error",
+                text: "senha incorreta",
+              });
+        }
 
         axios.post(Url, body)
         .then(res => {
             setAndPersistToken(res.data.token);
             setAndPersistUsername(res.data.name);
             setWrongInputs([])
+            alert = null
             setButtonText("Entrar")
             navigate("/");
         })
@@ -53,7 +60,10 @@ export default function SignIn() {
                   setButtonText("Entrar")
                   focus1()
         });
-        
+        setTimeout(() => {
+            setButtonText("Entrar")
+            alert()
+        }, 8000)
     }
     return (
         <BackGround>
@@ -131,6 +141,7 @@ const Form = styled.form`
         align-items: center;
         color: white;
         justify-content: center;
+        cursor: pointer;
     }
 `
 const StyleInput = styled.input`

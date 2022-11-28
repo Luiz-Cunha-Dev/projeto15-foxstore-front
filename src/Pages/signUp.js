@@ -175,6 +175,7 @@ const Form = styled.form`
         display: flex;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
     }
 `
 const StyleInput = styled.input`
