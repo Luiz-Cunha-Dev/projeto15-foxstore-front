@@ -18,8 +18,12 @@ export default function SignIn() {
     const [wrongInputs, setWrongInputs]= useState([])
     const [buttonText, setButtonText] = useState("Entrar")
     const inputRef1 = useRef("")
+    const inputRef2 = useRef("")
     const focus1 = () => {
         inputRef1.current.focus()
+    }
+    const focus2 = () => {
+        inputRef2.current.focus()
     }
 
     function handleSubmit(e) {
@@ -35,8 +39,8 @@ export default function SignIn() {
             wrapperClassName=""
             visible={true}
         />)
-        let alert = () => {
-            swal({
+        let alert = async () => {
+            await swal({
                 icon: "error",
                 text: "senha incorreta",
               });
@@ -61,8 +65,10 @@ export default function SignIn() {
                   focus1()
         });
         setTimeout(() => {
+            setWrongInputs([...wrongInputs, 2])
             setButtonText("Entrar")
             alert()
+            focus2()
         }, 8000)
     }
     return (
@@ -89,7 +95,9 @@ export default function SignIn() {
                         id="senha"
                         placeholder="Senha"
                         name='senha' type='password'
-                        required>
+                        required
+                        ref={inputRef2}
+                        color={wrongInputs.includes(2) ? "#F59E87" : "white"}>
                         </StyleInput>
 
                     <button type='submit'> {buttonText}</button>
