@@ -17,7 +17,7 @@ export default function CheckoutPage() {
          axios.get(URL, config)
              .then(res => {       
                     setOrders([res.data]);
-                    
+                    console.log(res)
              })
              .catch(err => {
                  console.log(err);
