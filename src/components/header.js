@@ -167,6 +167,7 @@ font-weight: 600;
 font-size: 30px;
 color: black;
 margin-right: 50px;
+cursor: pointer;
 }
 img{
     width: 45px;
