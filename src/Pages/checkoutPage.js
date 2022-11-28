@@ -5,6 +5,7 @@ import axios from "axios"
 import styled from "styled-components";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import { Link } from "react-router-dom";
 
 
 export default function CheckoutPage() {
@@ -32,17 +33,20 @@ export default function CheckoutPage() {
         <BackGround>
                 <Header/>
                 <Tittle>Pedido Finalizado com Sucesso</Tittle>
-                <Container>
                 <AlignItems>
+                <Subtitle>Você comprou:</Subtitle>
                         {orders.map(order => (
                             <StyleItem key={order.id}>
-                                <div>{order.name}</div>
-                                <div>{order.value}</div>
-                                <div>{order.qtde}</div>
+                                <StyleImage src="https://imgnike-a.akamaihd.net/1366x1366/0226290L.jpg" alt={order.name}/>
+                                <StyleText>
+                                    <span><b style={{fontWeight: '600'}}>Produto:</b> {order.name}</span>
+                                    <span><b style={{fontWeight: '600'}}>preço:</b> R${order.value},00</span>
+                                    <span><b style={{fontWeight: '600'}}>quantidade:</b> {order.qtde}</span>
+                                </StyleText>
                             </StyleItem>
                         ))}
                 </AlignItems>
-                </Container>
+                <Link to="/"><ButtonHome>Continuar Comprando</ButtonHome></Link>
                 <Footer/>
         </BackGround>
         </>
@@ -50,53 +54,68 @@ export default function CheckoutPage() {
 }
 
 
-const Itens = styled.div`
+const ButtonHome = styled.button`
+width: 400px;
+height: 40px;
+background-color: #FFC700;
+border: none;
+border-radius: 5px;
+font-size: 20px;
+color: black;
+font-weight: bold;
+margin-top: 50px;
+:hover {
+    background-color: #FFC700;
+    opacity: 0.8;
+    cursor: pointer;
+}
+`
+const Subtitle = styled.h2`
+    position: relative;
+    font-size: 25px;
+    margin-top: 40px;
+    color: #black;
+    margin: 0 0 20px 0;
+    text-align: center;
+
+`
+const StyleText = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    width: 400px;
-    height: 400px;
-`
-
-const RemoveButton = styled.p`
-    width: 90px;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: lightgray;
-    text-align:center;
-    :hover {
-        color: red;
-        opacity: 0.8;
-        cursor: pointer;
-    }
-`
-
-const Container = styled.div`
-    display: flex;
-    @media (max-width: 400px) {
-        flex-direction: column;
-        
-    }
-`
-
-const AlignItems = styled.div`
-    display: flex;
-    flex-direction: column;
+    margin-left: 10px;
     width: 100%;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    margin-left: 2%;
-    margin-right: 2%;
+    height: 100%;
+    span {
+        max-width: 70%;
+        font-size: 20px;
+        color: #black;
+        margin: 0 0 5px 0;
+    }
+`
+
+const StyleImage = styled.img`
+
+    width: 100px;
+    height: 100px;
+    margin-left: 20px;
+    border-radius: 50%;
+
 `
 
 const BackGround = styled.div`
 background: #F2F2F2;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+
+`
+const AlignItems = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
 `
 
 const Tittle = styled.h1`
@@ -107,86 +126,24 @@ const Tittle = styled.h1`
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    margin-bottom: 20px;
 `
  
 const StyleItem = styled.div`
-position: relative;
-width: 250px;
-display: flex;
-flex-direction: column;
-margin-right: 50px;
-padding-left: 15px;
-padding-top: 10px;
-margin-top: 2%;
-position: relative;
-background-color: white;
-img{
-    width: 83px;
-    height: 105px;
-}
-p{
-    font-family: 'Poppins';
-font-style: normal;
-font-weight: 500;
-font-size: 17px;
-line-height: 38px;
-color: #000000;
-
-}
-b{
-    font-family: 'Poppins';
-font-style: normal;
-font-weight: 600;
-font-size: 18px;
-line-height: 55px;
-color: #000000;  
-}
-span{
-    display: flex;
-    width: 50px;
-    height: 25px;
-    background-color: white;
-    justify-content: center;
-    align-items: center;
-    border-left: solid;
-    border-right: solid;
-    border-width: 1px;
-    font-family: 'Poppins';
-font-style: normal;
-font-weight: 500;
-font-size: 17px;
-line-height: 38px;
-color: #000000;
-
-}
-button{
-    width: 30px;
-    height: 25px;
-    background-color: black;
-    border: thin;
-    font-family: 'Poppins';
-font-style: normal;
-font-weight: 500;
-font-size: 17px;
-line-height: 38px;
-color: #000000;
-display: flex;
-justify-content: center;
+width: 150%;
+height: 200px;
 align-items: center;
-color: white;
+justify-content: center;
 
-:hover {
-        color: #E96324;
-        cursor: pointer;
-    }
-}
-div{
-    display: flex;
-    position: absolute;
-    right: 10px;
-    top: 50px;
-    border-radius: 5px;
-    border: solid ;
-    border-color: black;
-}
+display: flex;
+flex-direction: row;
+border-radius: 10px;
+margin-bottom: 20px;
+margin-top: 20px;
+margin-left: 20px;
+margin-right: 20px;
+
+
+background-color: white;
+
 `
